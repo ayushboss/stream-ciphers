@@ -24,6 +24,7 @@ from __future__ import print_function
 from instance_entropy import obtain_entropy
 import StringIO
 import numpy as np
+import csv
 
 import argparse
 import sys
@@ -124,12 +125,18 @@ if args.list_tests:
 f = open("feature_test_summary.txt", "w+")
 
 instance_amnt = input("# of instances: ")
+bits_per_instance = input("# of bits per instance: ")
 
 x = 1
 
+filename = "cluster_data.csv"
+bnb = open(filename, "w+")
+bnb.close()
+
 for r in range(instance_amnt):   
+    print("-----------------------\tIteration " + str(x) + "\t-----------------------")
     bits = []
-    for r in range(1028016):
+    for r in range(bits_per_instance):
         bits.append(random.randrange(0,2));
 
     #for r in bits:
@@ -140,20 +147,20 @@ for r in range(instance_amnt):
         if args.testname in testlist:    
             m = __import__ ("sp800_22_"+args.testname)
             func = getattr(m,args.testname)
-            #print("TEST: %s" % args.testname)
+            print("TEST: %s" % args.testname)
             success,p,plist = func(bits)
             gotresult = True
-            #if success:
-            #    print("PASS")
-            #else:
-            #    print("FAIL")
+            if success:
+                print("PASS")
+            else:
+                print("FAIL")
      
-            #if p:
-            #    print("P="+str(p))
+            if p:
+                print("P="+str(p))
 
-            #if plist:
-            #    for pval in plist:
-            #        print("P="+str(pval))
+            if plist:
+                for pval in plist:
+                    print("P="+str(pval))
         else:
             print("Test name (%s) not known" % args.ttestname)
             exit()
@@ -161,7 +168,7 @@ for r in range(instance_amnt):
         results = list()
         
         for testname in testlist:
-            #print("TEST: %s" % testname)
+            print("TEST: %s" % testname)
             m = __import__ ("sp800_22_"+testname)
             func = getattr(m,testname)
             
@@ -169,19 +176,19 @@ for r in range(instance_amnt):
 
             summary_name = testname
             if success:
-            #    print("  PASS")
+                print("  PASS")
                 summary_result = "PASS"
             else:
-            #    print("  FAIL")
+                print("  FAIL")
                 summary_result = "FAIL"
             
             if p != None:
-            #    print("  P="+str(p))
+                print("  P="+str(p))
                 summary_p = str(p)
                 
             if plist != None:
                 for pval in plist:
-            #        print("P="+str(pval))
+                    print("P="+str(pval))
                     summary_p = str(min(plist))
             
             results.append((summary_name,summary_p, summary_result))
@@ -189,10 +196,11 @@ for r in range(instance_amnt):
         print()
         f.write("\n\nSUMMARY for Iteration " + str(x) + "\n")
         f.write("-------\n")
-        x = x + 1
         for result in results:
             (summary_name,summary_p, summary_result) = result
             f.write(str(summary_name) + '\t\t' + str(summary_p) + '\t\t' + str(summary_result) + '\n')
+            print(summary_name.ljust(40),summary_p.ljust(18),summary_result)
+
         
         # Calculate the entropy value of the data
         f.write("Entropy Value\t\t" + str(obtain_entropy(bits)) + "\n")
@@ -200,5 +208,33 @@ for r in range(instance_amnt):
         # Calculate the compression ratio of the data
         s = np.asarray(bits);
         f.write("Compression Value\t\t" + str(get_compressed_ratio(s)) + "\n")    
-    f.close()
+        row = [x, str(obtain_entropy(bits)), str(get_compressed_ratio(s))]
+        with open("cluster_data.csv", "a") as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(row)
+        x+=1
+
+f.close()
+csvfile.close()
+
+"""
+    look at the different things for entropy
+    cluster with entropy and the compression_ratio
+    consider the quantification
+
+    2problems
+        1) can we find a suboptimal subset of large list of tests
+        2) How can we quantify the quality of PRNGs
+            perhaps quality of clustering (density and how far apart)
+
+    Study how do we quantify the quality of feature space partitioning 
+        in our case the fs is a 2D one with compression ratio and entropy 
+        Within - how dense are the clusters
+        Between - what is the distance between cluster centers
+
+        both of the above are matricies
+        quality would be a function of within and between
+
+        Within and between dispersion matricies
+"""
 
