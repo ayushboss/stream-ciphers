@@ -3,10 +3,10 @@
 NotebookFileLineBreakTest
 NotebookFileLineBreakTest
 NotebookDataPosition[         0,          0]
-NotebookDataLength[     19581,        435]
-NotebookOptionsPosition[     18564,        405]
-NotebookOutlinePosition[     18921,        421]
-CellTagsIndexPosition[     18878,        418]
+NotebookDataLength[     19543,        431]
+NotebookOptionsPosition[     18569,        403]
+NotebookOutlinePosition[     18926,        419]
+CellTagsIndexPosition[     18883,        416]
 WindowFrame->Normal*)
 
 (* Beginning of Notebook Content *)
@@ -20,11 +20,12 @@ Cell[BoxData[
     RowBox[{"Import", "[", 
      RowBox[{
      "\"\</Users/ayushboss/Desktop/Coding/Python/hsmc-stream-cipher-2019-git/\
-7-12-19-3:35/stream-ciphers/cluster_data.csv\>\"", ",", "\"\<CSV\>\""}], 
-     "]"}]}], "\[IndentingNewLine]"}]}]], "Input",
+7-12-19-3:35/stream-ciphers/python/cluster_data.csv\>\"", ",", 
+      "\"\<CSV\>\""}], "]"}]}], "\[IndentingNewLine]"}]}]], "Input",
  CellChangeTimes->{{3.772053716278504*^9, 3.77205375161065*^9}, 
-   3.772054344123047*^9},
- CellLabel->"In[2]:=",ExpressionUUID->"525f2b9e-ee5d-4c7e-86ab-c9fc2e9f079c"],
+   3.772054344123047*^9, {3.7721521030497007`*^9, 
+   3.772152103933536*^9}},ExpressionUUID->"525f2b9e-ee5d-4c7e-86ab-\
+c9fc2e9f079c"],
 
 Cell[BoxData[
  RowBox[{"{", 
@@ -71,8 +72,6 @@ Cell[BoxData[{
   3.772054390489534*^9, 3.772054420920802*^9}, {3.7720544535218153`*^9, 
   3.772054683301675*^9}},
  CellLabel->"In[27]:=",ExpressionUUID->"49e5e0b3-a0e1-4aa8-9e71-71cb7212f12a"],
-
-Cell[CellGroupData[{
 
 Cell[BoxData[{
  RowBox[{"{", 
@@ -401,7 +400,6 @@ Sg==\
   "Grid"]], "Output",
  CellChangeTimes->{3.772054723016015*^9},
  CellLabel->"Out[31]=",ExpressionUUID->"2b616f71-0bc9-42cf-8444-45b84e9c62f7"]
-}, Open  ]]
 },
 WindowSize->{Full, Full},
 WindowMargins->{{316, Automatic}, {Automatic, 50}},
@@ -421,15 +419,13 @@ CellTagsIndex->{}
 (*NotebookFileOutline
 Notebook[{
 Cell[CellGroupData[{
-Cell[422, 15, 497, 11, 73, "Input",ExpressionUUID->"525f2b9e-ee5d-4c7e-86ab-c9fc2e9f079c"],
-Cell[922, 28, 404, 10, 34, "Output",ExpressionUUID->"c0c34ee7-9b03-496f-975a-8d602fa4b9c5"]
+Cell[422, 15, 536, 12, 73, "Input",ExpressionUUID->"525f2b9e-ee5d-4c7e-86ab-c9fc2e9f079c"],
+Cell[961, 29, 404, 10, 34, "Output",ExpressionUUID->"c0c34ee7-9b03-496f-975a-8d602fa4b9c5"]
 }, Open  ]],
-Cell[1341, 41, 1185, 31, 136, "Input",ExpressionUUID->"49e5e0b3-a0e1-4aa8-9e71-71cb7212f12a"],
-Cell[CellGroupData[{
-Cell[2551, 76, 1052, 28, 52, InheritFromParent,ExpressionUUID->"74bac669-4ee2-40e6-9d18-b98af82426ca"],
-Cell[3606, 106, 359, 9, 34, "Output",ExpressionUUID->"63b05848-e644-46d9-ab1e-f6b2c00183de"],
-Cell[3968, 117, 14580, 285, 133, "Output",ExpressionUUID->"2b616f71-0bc9-42cf-8444-45b84e9c62f7"]
-}, Open  ]]
+Cell[1380, 42, 1185, 31, 136, "Input",ExpressionUUID->"49e5e0b3-a0e1-4aa8-9e71-71cb7212f12a"],
+Cell[2568, 75, 1052, 28, 52, "Input",ExpressionUUID->"74bac669-4ee2-40e6-9d18-b98af82426ca"],
+Cell[3623, 105, 359, 9, 34, "Output",ExpressionUUID->"63b05848-e644-46d9-ab1e-f6b2c00183de"],
+Cell[3985, 116, 14580, 285, 133, "Output",ExpressionUUID->"2b616f71-0bc9-42cf-8444-45b84e9c62f7"]
 }
 ]
 *)

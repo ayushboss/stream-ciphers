@@ -261,6 +261,21 @@ public class LinkedList2<AnyType> implements Iterable<AnyType> {
 
 		return twin;
 	}
+	
+	// user created, returns the size of a linkedlist
+	public int size(){
+		int count = 1; 
+		
+		if (head == null)
+			return 0;
+
+		Node<AnyType> tmp = head;
+		while (tmp.next != null) {
+			tmp = tmp.next;
+			count++;
+		}
+		return count;
+	}
 
 	/*******************************************************
 	 *

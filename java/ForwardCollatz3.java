@@ -2,8 +2,8 @@ import java.util.LinkedList;
 
 public class ForwardCollatz3 { // forward collatz using my own implementation of a deque using circular arrays
 
-	public static LinkedList<Integer> generateCollatz(int n, int k) { // input: number of iterations to generate numbers
-																		// for, starting number
+	public static LinkedList<Integer> generateCollatz(int n, int k) { // n: number of iterations to generate numbers
+																		// k: for, starting number
 		int iteration = n; // output: list of said generated numbers using collatz
 		LinkedList2<Integer> q = new LinkedList2<Integer>();
 		q.addFirst(k);
@@ -13,9 +13,20 @@ public class ForwardCollatz3 { // forward collatz using my own implementation of
 			q.removeFirst();
 			list.add(x);
 			if (x % 3 == 1 && x > 1 && (x - 1) / 3 % 2 != 0) { // even numbers will never do 3n+1 so we eliminate those
-				q.addLast((x - 1) / 3);
-			}  
-			q.addLast(x * 2);
+				if(q.isEmpty()) {
+					q.addFirst((x-1)/3);
+				}
+				else {
+					
+					q.addLast((x-1)/3);
+				}
+			}   
+			if(q.isEmpty()) {
+				q.addFirst(x*2);
+			}
+			else {
+				q.insertBefore(q.get(q.size()/2), x*2);
+			}	
 		}
 		return list;
 	}
@@ -69,21 +80,16 @@ public class ForwardCollatz3 { // forward collatz using my own implementation of
 
 	public static void main(String[] args) {
 		// TODO Auto-generated method stub
-
-		//System.out.println(distanceBetween(mod2(generateCollatz(10000,8))));
-		//System.out.println(distanceBetween(mod2(removeEvens(generateCollatz(10000,8),1))));
 		
-		LinkedList<Integer> A = generateCollatz(10000,8);
+		System.out.println(generateCollatz(10000,8));
 		
-		System.out.println(distanceBetween(A));
-		System.out.println(distanceBetween(removeEvens(A,1)));
 		
-		/*
+		
 		int itr = 10000; // the number of collatz numbers to be generated
 		int start = 8; // number to start collatz generation
 		for (int i = 0; i < 100; i++) {
 			int x = (i + 1) * 100;
-			LinkedList<Integer> list = mod2(distanceBetween(mod2(removeEvens(generateCollatz(x, start),2))));
+			LinkedList<Integer> list = mod2(distanceBetween(mod2(removeEvens(generateCollatz(x, start),1))));
 			int ones = 0;
 			int zeroes = 0;
 			for (int j = 0; j < list.size(); j++) {
@@ -98,7 +104,7 @@ public class ForwardCollatz3 { // forward collatz using my own implementation of
 			System.out.println("itr: " + x + " ones: " + ones + " zeroes: " + zeroes + " diff: " + diff + " ratio: "
 					+ (diff / (double) total));
 		}
-		*/
+		
 
 	}
 
