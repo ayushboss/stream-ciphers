@@ -21,22 +21,24 @@
 # along with sp800_22_tests.  If not, see <http://www.gnu.org/licenses/>.
 
 from __future__ import print_function
-from instance_entropy import obtain_entropy
-import StringIO
+from scipy.stats import entropy
+import io
 import numpy as np
 import csv
+import sys
+sys.path.append('python')
 
 import argparse
 import sys
 import random
 
 def get_compressed_ratio(a):
-    uncompressed = StringIO.StringIO()
-    compressed = StringIO.StringIO()
+    uncompressed = io.BytesIO()
+    compressed = io.BytesIO()
     np.savez_compressed(compressed, a)
     np.savez(uncompressed, a)
 
-    return uncompressed.len/float(compressed.len)
+    return uncompressed.getbuffer().nbytes/float(compressed.getbuffer().nbytes)
 
 
 def read_bits_from_file(filename,bigendian):
@@ -124,8 +126,8 @@ if args.list_tests:
 #bits = read_bits_from_file(filename,bigendian) 
 f = open("feature_test_summary.txt", "w+")
 
-instance_amnt = input("# of instances: ")
-bits_per_instance = input("# of bits per instance: ")
+instance_amnt = int(input("# of instances: "))
+bits_per_instance = int(input("# of bits per instance: "))
 
 x = 1
 
@@ -138,6 +140,10 @@ for r in range(instance_amnt):
     bits = []
     for r in range(bits_per_instance):
         bits.append(random.randrange(0,2));
+
+    get_compressed_ratio(bits)
+    f.write(("Compression Value\t\t" + str(get_compressed_ratio(bits)) + "\n"))
+    print(("Compression Value\t\t" + str(get_compressed_ratio(bits)) + "\n"))
 
     #for r in bits:
     #    print(r)
@@ -203,13 +209,13 @@ for r in range(instance_amnt):
 
         
         # Calculate the entropy value of the data
-        f.write("Entropy Value\t\t" + str(obtain_entropy(bits)) + "\n")
+        f.write("Entropy Value\t\t" + str(entropy(bits)) + "\n")
 
         # Calculate the compression ratio of the data
         s = np.asarray(bits);
-        f.write("Compression Value\t\t" + str(get_compressed_ratio(s)) + "\n")    
-        row = [x, str(obtain_entropy(bits)), str(get_compressed_ratio(s))]
-        with open("cluster_data.csv", "a") as csvfile:
+        f.write(("Compression Value\t\t" + str(get_compressed_ratio(s)) + "\n"))    
+        row = [x, str(entropy(bits)), str(get_compressed_ratio(s))]
+        with open("cluster_datae.csv", "a") as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(row)
         x+=1

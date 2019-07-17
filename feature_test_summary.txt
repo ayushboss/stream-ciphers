@@ -1,46 +1,24 @@
+Compression Value		26.632257981029284
 
 
 SUMMARY for Iteration 1
 -------
-chi_squared_test		0.10216029118958934		PASS
+chi_squared_test		0.8298405044632172		PASS
 ks_test		0.0		FAIL
-monobit_test		0.10216029119		PASS
-frequency_within_block_test		0.244340541956		PASS
-runs_test		0.677885653144		PASS
-longest_run_ones_in_a_block_test		0.143808285702		PASS
-binary_matrix_rank_test		0.277326457455		PASS
-dft_test		0.337600169766		PASS
-non_overlapping_template_matching_test		0.999999845446		PASS
-overlapping_template_matching_test		0.947901595904		PASS
-maurers_universal_test		0.998877769262		PASS
-linear_complexity_test		0.681877130464		PASS
-serial_test		0.0302561873593		PASS
-approximate_entropy_test		0.0303060095405		PASS
-cumulative_sums_test		0.0697806490662		PASS
-random_excursion_test		0.410236142121		PASS
-random_excursion_variant_test		0.0563883874435		PASS
-Entropy Value		13.152560810629144
-Compression Value		26.6319995083
-
-
-SUMMARY for Iteration 2
--------
-chi_squared_test		0.38674281520807885		PASS
-ks_test		0.0		FAIL
-monobit_test		0.386742815208		PASS
-frequency_within_block_test		0.271902873868		PASS
-runs_test		0.937727693404		PASS
-longest_run_ones_in_a_block_test		0.222803240528		PASS
-binary_matrix_rank_test		0.447060381675		PASS
-dft_test		0.651038682451		PASS
-non_overlapping_template_matching_test		1.00000011407		PASS
-overlapping_template_matching_test		0.741281272378		PASS
-maurers_universal_test		0.99846666654		PASS
-linear_complexity_test		0.844231978773		PASS
-serial_test		0.335271966657		PASS
-approximate_entropy_test		0.592991474012		PASS
-cumulative_sums_test		0.342354594431		PASS
-random_excursion_test		0.0799819500279		PASS
-random_excursion_variant_test		0.0		FAIL
-Entropy Value		13.150097214438533
-Compression Value		26.6539876188
+monobit_test		0.8298405044632172		PASS
+frequency_within_block_test		0.9785510194502425		PASS
+runs_test		0.998463206045618		PASS
+longest_run_ones_in_a_block_test		0.2640975049946326		PASS
+binary_matrix_rank_test		0.5867082132519911		PASS
+dft_test		0.7584039197469703		PASS
+non_overlapping_template_matching_test		0.9998513508266719		PASS
+overlapping_template_matching_test		0.9567131562141625		PASS
+maurers_universal_test		0.9995980952092488		PASS
+linear_complexity_test		0.24187987926580334		PASS
+serial_test		0.9452497784042877		PASS
+approximate_entropy_test		0.9452824099238812		PASS
+cumulative_sums_test		0.9729875195035884		PASS
+random_excursion_test		0.11084060523599959		PASS
+random_excursion_variant_test		0.004066922800492659		FAIL
+Entropy Value		13.15073895564051
+Compression Value		26.632257981029284
