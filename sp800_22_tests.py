@@ -142,8 +142,6 @@ for r in range(instance_amnt):
         bits.append(random.randrange(0,2));
 
     get_compressed_ratio(bits)
-    f.write(("Compression Value\t\t" + str(get_compressed_ratio(bits)) + "\n"))
-    print(("Compression Value\t\t" + str(get_compressed_ratio(bits)) + "\n"))
 
     #for r in bits:
     #    print(r)

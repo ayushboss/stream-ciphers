@@ -6,7 +6,7 @@ import numpy as np
 import csv
 
 #reading in and parsing the data
-data = pd.read_csv('cluster_data.csv', error_bad_lines=False, engine="python") 
+data = pd.read_csv('/tests/cluster_data.csv', error_bad_lines=False, engine="python") 
 print(data)
 
 #maybe?? : converting the returned value from read_csv to a nested list to pass into dbscan

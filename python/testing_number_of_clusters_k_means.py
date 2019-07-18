@@ -11,7 +11,7 @@ import csv
 data = pd.read_csv('cluster_data.csv', error_bad_lines=False, engine="python") #reads and parses the data
 print(data)
 print(data.head())
-
+print (len(data))
 n_clusters = 16
 
 clusterer = KMeans(n_clusters=n_clusters, random_state=10)
