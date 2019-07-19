@@ -22,9 +22,15 @@ for column in df:
 
 #attempt add up	
 
-best_features = []
+best_features_per_num_of_features = []
+
 features_already_included = []
 for r in range(0, len(features)): # r represents the number of features we are adding
+	print(len(features_already_included))
+	best_features = []
+	for i in features_already_included:
+		best_features.append(features[i])
+	print ("jgh: " + str(best_features) )
 	best_coeff = 0
 	best_coeff_idx = 0
 	for d in range(0, len(features)):
@@ -47,10 +53,10 @@ for r in range(0, len(features)): # r represents the number of features we are a
 			best_coeff = silhouette_avg
 		print("Sillhouette score for feature " + str(d) + " is " + str(silhouette_avg))
 		del best_features[-1]
-	print("yeet: " + str(len(best_features)))
 	best_features.append(features[best_coeff_idx])
 	features_already_included.append(best_coeff_idx)
+	best_features_per_num_of_features.append(best_features)
+	print(len(best_features))
 
-print("The List of Best Features is:\n" + str(best_features))
-
-
+for i in range(0, len(best_features_per_num_of_features)):
+	print("Best features for " + str(i) + ": " + str(best_features_per_num_of_features[i]) )
