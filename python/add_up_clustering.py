@@ -6,6 +6,13 @@ from sklearn import preprocessing
 import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 import csv
+import seaborn as sns
+import statsmodels.api as sm
+from sklearn.model_selection import train_test_split
+from sklearn.linear_model import LinearRegression
+from sklearn.feature_selection import RFE
+from sklearn.linear_model import RidgeCV, LassoCV, Ridge, Lasso
+
 
 data = pd.read_csv('../cluster_data.csv', error_bad_lines=False, engine="python") #reads and parses the data
 
@@ -19,6 +26,12 @@ features = []
 for column in df:
 	epiclist = df[column] # epiclist = values for a certain feature for all iterations
 	features.append(epiclist)
+
+#generates a heatmap that we can use to find strongly correlated values
+plt.figure(figsize=(12,10))
+cor = df.corr()
+sns.heatmap(cor, annot=True, cmap=plt.cm.Reds)
+plt.show()
 
 #attempt add up	
 

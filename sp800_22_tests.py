@@ -32,14 +32,29 @@ import argparse
 import sys
 import random
 
-def get_compressed_ratio(a):
-    uncompressed = io.BytesIO()
-    compressed = io.BytesIO()
-    np.savez_compressed(compressed, a)
-    np.savez(uncompressed, a)
+import zipfile
+import os
 
-    return uncompressed.getbuffer().nbytes/float(compressed.getbuffer().nbytes)
+import time
 
+# def get_compressed_ratio(a):
+#     uncompressed = io.BytesIO()
+#     compressed = io.BytesIO()
+#     np.savez_compressed(compressed, a)
+#     np.savez(uncompressed, a)
+
+#     return uncompressed.getbuffer().nbytes/float(compressed.getbuffer().nbytes)
+
+def get_compressed_ratio(bits):
+    s = open("bits.txt", "w+")
+    for ints in bits:
+        s.write(str(ints) + ", ")
+    precompress_size = os.path.getsize("bits.txt")
+    bits_zip = zipfile.ZipFile("bits-compressed.zip", "w")
+    bits_zip.write('bits.txt', compress_type=zipfile.ZIP_DEFLATED)
+    bits_zip.close()
+    postcompress_size = os.path.getsize("bits-compressed.zip")
+    return precompress_size/postcompress_size
 
 def read_bits_from_file(filename,bigendian):
     bitlist = list()
@@ -80,6 +95,8 @@ args = parser.parse_args()
 bigendian = args.be
 filename = args.filename
 
+# X 3.-1 Chi Squared Test
+# X 3.0  KS-Test (STILL NEED TO FIX)
 # X 3.1  Frequency (Monobits) Test
 # X 3.2  Frequency Test within a Block
 # X 3.3  Runs Test
@@ -95,7 +112,6 @@ filename = args.filename
 # X 3.13 Cumulative Sums Test
 # X 3.14 Random Excursions Test
 # X 3.15 Random Excursions Variant Test 
-
 
 testlist = [
         'chi_squared_test',
@@ -135,8 +151,9 @@ filename = "cluster_data.csv"
 bnb = open(filename, "w+")
 bnb.close()
 
-for r in range(instance_amnt):   
+for r in range(instance_amnt):
     print("-----------------------\tIteration " + str(x) + "\t-----------------------")
+    start_time = time.time()
     bits = []
     for r in range(bits_per_instance):
         bits.append(random.randrange(0,2));
@@ -146,14 +163,18 @@ for r in range(instance_amnt):
     #for r in bits:
     #    print(r)
 
+    additional_data = {}
+
     gotresult=False
     if args.testname:
         if args.testname in testlist:    
             m = __import__ ("sp800_22_"+args.testname)
             func = getattr(m,args.testname)
             print("TEST: %s" % args.testname)
-            success,p,plist = func(bits)
+            (success,p,plist,score) = func(bits)
             gotresult = True
+
+            print("-------------- SCORE -------------------\t" + str(score))
             if success:
                 print("PASS")
             else:
@@ -176,7 +197,7 @@ for r in range(instance_amnt):
             m = __import__ ("sp800_22_"+testname)
             func = getattr(m,testname)
             
-            (success,p,plist) = func(bits)
+            (success,p,plist, score) = func(bits)
 
             summary_name = testname
             if success:
@@ -195,6 +216,9 @@ for r in range(instance_amnt):
                     print("P="+str(pval))
                     summary_p = str(min(plist))
             
+            if score != -1 and testname != 'approximate_entropy_test':
+                additional_data[testname] = score
+
             results.append((summary_name,summary_p, summary_result))
             
         print()
@@ -212,11 +236,15 @@ for r in range(instance_amnt):
         # Calculate the compression ratio of the data
         s = np.asarray(bits);
         f.write(("Compression Value\t\t" + str(get_compressed_ratio(s)) + "\n"))    
-        row = [x, str(entropy(bits)), str(get_compressed_ratio(s))]
-        with open("cluster_datae.csv", "a") as csvfile:
+        row = [str(entropy(bits)), str(get_compressed_ratio(s))]
+        for idx in additional_data:
+            row.append(additional_data[idx])
+        with open("cluster_data.csv", "a") as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(row)
         x+=1
+        end = time.time()
+        print("Duration: " + str(end-start_time))
 
 f.close()
 csvfile.close()

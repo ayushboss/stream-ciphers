@@ -1,24 +1,230 @@
-Compression Value		26.632257981029284
 
 
 SUMMARY for Iteration 1
 -------
-chi_squared_test		0.8298405044632172		PASS
+chi_squared_test		0.674518924310582		PASS
 ks_test		0.0		FAIL
-monobit_test		0.8298405044632172		PASS
-frequency_within_block_test		0.9785510194502425		PASS
-runs_test		0.998463206045618		PASS
-longest_run_ones_in_a_block_test		0.2640975049946326		PASS
-binary_matrix_rank_test		0.5867082132519911		PASS
-dft_test		0.7584039197469703		PASS
-non_overlapping_template_matching_test		0.9998513508266719		PASS
-overlapping_template_matching_test		0.9567131562141625		PASS
-maurers_universal_test		0.9995980952092488		PASS
-linear_complexity_test		0.24187987926580334		PASS
-serial_test		0.9452497784042877		PASS
-approximate_entropy_test		0.9452824099238812		PASS
-cumulative_sums_test		0.9729875195035884		PASS
-random_excursion_test		0.11084060523599959		PASS
-random_excursion_variant_test		0.004066922800492659		FAIL
-Entropy Value		13.15073895564051
-Compression Value		26.632257981029284
+monobit_test		0.674518924310582		PASS
+frequency_within_block_test		0.46085185375181464		PASS
+runs_test		0.2520703439381151		PASS
+longest_run_ones_in_a_block_test		0.6273634791127749		PASS
+binary_matrix_rank_test		0.5113196818860304		PASS
+dft_test		0.835176603273865		PASS
+non_overlapping_template_matching_test		0.999999351489686		PASS
+overlapping_template_matching_test		0.022992678010819025		PASS
+maurers_universal_test		0.9994665282499786		PASS
+linear_complexity_test		0.5939583261252095		PASS
+serial_test		0.5150360714927681		PASS
+approximate_entropy_test		0.5149366696222386		PASS
+cumulative_sums_test		0.4980124082431763		PASS
+random_excursion_test		0.38490705635865763		PASS
+random_excursion_variant_test		0.0		FAIL
+Entropy Value		13.151364742753385
+Compression Value		14.156956999278496
+
+
+SUMMARY for Iteration 2
+-------
+chi_squared_test		0.579562377485365		PASS
+ks_test		0.0		FAIL
+monobit_test		0.5795623774853649		PASS
+frequency_within_block_test		0.12063282582702133		PASS
+runs_test		0.5253220528167266		PASS
+longest_run_ones_in_a_block_test		0.19482922105420328		PASS
+binary_matrix_rank_test		0.20002752177059752		PASS
+dft_test		0.06366611790232629		PASS
+non_overlapping_template_matching_test		0.9999990847556508		PASS
+overlapping_template_matching_test		0.9264916702110869		PASS
+maurers_universal_test		0.9995290086207181		PASS
+linear_complexity_test		0.019643345453245475		PASS
+serial_test		0.27603137487564056		PASS
+approximate_entropy_test		0.4433784697910565		PASS
+cumulative_sums_test		0.612532968576506		PASS
+random_excursion_test		0.01751096136049808		PASS
+random_excursion_variant_test		0.01754926191550154		PASS
+Entropy Value		13.150404523734144
+Compression Value		14.172392852542279
+
+
+SUMMARY for Iteration 3
+-------
+chi_squared_test		0.6644660033874119		PASS
+ks_test		0.0		FAIL
+monobit_test		0.6644660033874119		PASS
+frequency_within_block_test		0.08918462303160232		PASS
+runs_test		0.9404248087975607		PASS
+longest_run_ones_in_a_block_test		0.21402601351025605		PASS
+binary_matrix_rank_test		0.2964751463146156		PASS
+dft_test		0.5997981137643552		PASS
+non_overlapping_template_matching_test		0.9999999486949792		PASS
+overlapping_template_matching_test		0.9252895721785849		PASS
+maurers_universal_test		0.999962469662309		PASS
+linear_complexity_test		0.7466199730848478		PASS
+serial_test		0.7405561814269809		PASS
+approximate_entropy_test		0.7407122620980858		PASS
+cumulative_sums_test		0.8634962555113681		PASS
+random_excursion_test		0.3890806392126881		PASS
+random_excursion_variant_test		0.07030512397767563		PASS
+Entropy Value		13.15137834247284
+Compression Value		14.150324065355093
+
+
+SUMMARY for Iteration 4
+-------
+chi_squared_test		0.10982493955065442		PASS
+ks_test		0.0		FAIL
+monobit_test		0.10982493955065438		PASS
+frequency_within_block_test		0.4097312116701425		PASS
+runs_test		0.10245830314041111		PASS
+longest_run_ones_in_a_block_test		0.6297810982074324		PASS
+binary_matrix_rank_test		0.7945740704636364		PASS
+dft_test		0.33760016976617424		PASS
+non_overlapping_template_matching_test		1.0000002390339717		PASS
+overlapping_template_matching_test		0.9892959056936967		PASS
+maurers_universal_test		0.9994133909947757		PASS
+linear_complexity_test		0.34680573736100445		PASS
+serial_test		0.31184670991951796		PASS
+approximate_entropy_test		0.3125511223039011		PASS
+cumulative_sums_test		0.1810502188774885		PASS
+random_excursion_test		0.041941852608884		PASS
+random_excursion_variant_test		0.022536015980024166		PASS
+Entropy Value		13.149373302949858
+Compression Value		14.169654931326642
+
+
+SUMMARY for Iteration 5
+-------
+chi_squared_test		0.18716542624354018		PASS
+ks_test		0.0		FAIL
+monobit_test		0.18716542624354396		PASS
+frequency_within_block_test		0.5018838053317735		PASS
+runs_test		0.13293438963257534		PASS
+longest_run_ones_in_a_block_test		0.9459221021807732		PASS
+binary_matrix_rank_test		0.14198211584469234		PASS
+dft_test		0.027929602732581358		PASS
+non_overlapping_template_matching_test		0.9999360683789278		PASS
+overlapping_template_matching_test		0.22771684463078043		PASS
+maurers_universal_test		0.9999814826379497		PASS
+linear_complexity_test		0.7964873277534001		PASS
+serial_test		0.16225580245947435		PASS
+approximate_entropy_test		0.21125335069394238		PASS
+cumulative_sums_test		0.2500916897612129		PASS
+random_excursion_test		0.016096973554010716		PASS
+random_excursion_variant_test		0.08414522910076114		PASS
+Entropy Value		13.152250281154503
+Compression Value		14.15734736551851
+
+
+SUMMARY for Iteration 6
+-------
+chi_squared_test		0.28170268508032126		PASS
+ks_test		0.0		FAIL
+monobit_test		0.28170268508032426		PASS
+frequency_within_block_test		0.004807917179478196		FAIL
+runs_test		0.7725824067536375		PASS
+longest_run_ones_in_a_block_test		0.17600786453026204		PASS
+binary_matrix_rank_test		0.9854189196403396		PASS
+dft_test		0.46370608950777437		PASS
+non_overlapping_template_matching_test		0.9999738802947585		PASS
+overlapping_template_matching_test		0.7439012798300215		PASS
+maurers_universal_test		0.999492780003877		PASS
+linear_complexity_test		0.6488054001854563		PASS
+serial_test		0.4365936428372047		PASS
+approximate_entropy_test		0.7182948133335575		PASS
+cumulative_sums_test		0.26548099888906473		PASS
+random_excursion_test		0.16343443675470043		PASS
+random_excursion_variant_test		0.02092434876593436		PASS
+Entropy Value		13.1520114960454
+Compression Value		14.16470328578917
+
+
+SUMMARY for Iteration 7
+-------
+chi_squared_test		0.9952806618973848		PASS
+ks_test		0.0		FAIL
+monobit_test		0.9952806618973848		PASS
+frequency_within_block_test		0.10421441791369325		PASS
+runs_test		0.5319696137254087		PASS
+longest_run_ones_in_a_block_test		0.09841761387958788		PASS
+binary_matrix_rank_test		0.25355693572124155		PASS
+dft_test		0.10154747538728134		PASS
+non_overlapping_template_matching_test		0.9999982332652851		PASS
+overlapping_template_matching_test		0.14991082187020935		PASS
+maurers_universal_test		0.9993565061963533		PASS
+linear_complexity_test		0.04348073862588342		PASS
+serial_test		0.12734676802436148		PASS
+approximate_entropy_test		0.3802208968029696		PASS
+cumulative_sums_test		0.8019205654018489		PASS
+random_excursion_test		0.09304536849795661		PASS
+random_excursion_variant_test		0.006264700137907351		FAIL
+Entropy Value		13.150945003335451
+Compression Value		14.174544818732716
+
+
+SUMMARY for Iteration 8
+-------
+chi_squared_test		0.5127404755431392		PASS
+ks_test		0.0		FAIL
+monobit_test		0.5127404755431393		PASS
+frequency_within_block_test		0.9222802041887088		PASS
+runs_test		0.6357777586639776		PASS
+longest_run_ones_in_a_block_test		0.3485676103985526		PASS
+binary_matrix_rank_test		0.5768185894811823		PASS
+dft_test		0.514826790736087		PASS
+non_overlapping_template_matching_test		1.0000003084117772		PASS
+overlapping_template_matching_test		0.09076295737975866		PASS
+maurers_universal_test		0.9984671187769482		PASS
+linear_complexity_test		0.6575161804057582		PASS
+serial_test		0.36766117769754936		PASS
+approximate_entropy_test		0.6906040105407243		PASS
+cumulative_sums_test		0.6054122269266047		PASS
+random_excursion_test		0.21237977392521246		PASS
+random_excursion_variant_test		0.08362420100070908		PASS
+Entropy Value		13.151595912834408
+Compression Value		14.162358977188095
+
+
+SUMMARY for Iteration 9
+-------
+chi_squared_test		0.7870745704495594		PASS
+ks_test		0.0		FAIL
+monobit_test		0.7870745704495594		PASS
+frequency_within_block_test		0.07984119690140394		PASS
+runs_test		0.5607696798932588		PASS
+longest_run_ones_in_a_block_test		0.40196328548167737		PASS
+binary_matrix_rank_test		0.880236062774984		PASS
+dft_test		0.02729169983826932		PASS
+non_overlapping_template_matching_test		1.0000000091951498		PASS
+overlapping_template_matching_test		0.40718295027662255		PASS
+maurers_universal_test		0.9999839853629942		PASS
+linear_complexity_test		0.0026014209410509734		FAIL
+serial_test		0.03745990164556614		PASS
+approximate_entropy_test		0.15734944993892672		PASS
+cumulative_sums_test		0.1045029983057022		PASS
+random_excursion_test		0.025438214665761412		PASS
+random_excursion_variant_test		0.0		FAIL
+Entropy Value		13.151217076750303
+Compression Value		14.16633173454982
+
+
+SUMMARY for Iteration 10
+-------
+chi_squared_test		0.8329162216563744		PASS
+ks_test		0.0		FAIL
+monobit_test		0.8329162216563744		PASS
+frequency_within_block_test		0.6911348501043062		PASS
+runs_test		0.22683319419994882		PASS
+longest_run_ones_in_a_block_test		0.39653786280223163		PASS
+binary_matrix_rank_test		0.923665730017033		PASS
+dft_test		0.07472646340118781		PASS
+non_overlapping_template_matching_test		0.9999999990924787		PASS
+overlapping_template_matching_test		0.2556075335780058		PASS
+maurers_universal_test		0.9992964660938798		PASS
+linear_complexity_test		0.3524967229049209		PASS
+serial_test		0.42081662875733933		PASS
+approximate_entropy_test		0.48816045077613296		PASS
+cumulative_sums_test		0.8045941792731044		PASS
+random_excursion_test		0.08101663566730333		PASS
+random_excursion_variant_test		0.031683230434783834		PASS
+Entropy Value		13.150742843725858
+Compression Value		14.176175531278474
