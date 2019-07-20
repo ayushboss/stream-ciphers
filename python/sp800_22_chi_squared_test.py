@@ -15,7 +15,7 @@ def chi_squared_test(bits):
 			observed[1] = observed[1] + 1
 	cs = chisquare(observed, [math.floor(len(bits)/2), len(bits) - math.floor(len(bits)/2)])
 	p = cs[1]
-	return (p >= 0.1, p, None)
+	return (p >= 0.1, p, None, -1)
 
 	# observed frequencies
 	# {0, 1, 2, ..., n}

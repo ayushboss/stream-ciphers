@@ -92,7 +92,7 @@ def cumulative_sums_test(bits):
         print("PASS")
     else:    
         print("FAIL: Data not random")
-    return (success, None, plist)
+    return (success, None, plist, -1)
 
 if __name__ == "__main__":
     bits = [1,1,0,0,1,0,0,1,0,0,0,0,1,1,1,1,1,1,0,1,

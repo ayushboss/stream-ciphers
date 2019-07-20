@@ -114,7 +114,7 @@ def linear_complexity_test(bits,patternlen=None):
     P = gammaincc((K/2.0),(chisq/2.0))
     print("  P = ",P)
     success = (P >= 0.01)
-    return (success, P, None)
+    return (success, P, None, (chisq/2.0))
     
 if __name__ == "__main__":
     bits = [1,1,0,1,0,1,1,1,1,0,0,0,1]

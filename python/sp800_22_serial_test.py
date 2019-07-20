@@ -92,7 +92,7 @@ def serial_test(bits,patternlen=None):
     print("  P2         = ",P2)
      
     success = (P1 >= 0.01) and (P2 >= 0.01)
-    return (success, None, [P1,P2])
+    return (success, None, [P1,P2],-1)
 
 if __name__ == "__main__":
     bits = [0,0,1,1,0,1,1,1,0,1]

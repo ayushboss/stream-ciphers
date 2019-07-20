@@ -63,6 +63,6 @@ def runs_test(bits):
       
     p = math.erfc(abs(vobs - (2.0*n*prop*(1.0-prop)))/(2.0*math.sqrt(2.0*n)*prop*(1-prop) ))
     success = (p >= 0.01)
-    return (success,p,None)
+    return (success,p,None,-1)
 
 

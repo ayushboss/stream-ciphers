@@ -7,11 +7,11 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 import csv
 
-data = pd.read_csv('cluster_data.csv', error_bad_lines=False, engine="python") #reads and parses the data
+data = pd.read_csv('../cluster_data.csv', error_bad_lines=False, engine="python") #reads and parses the data
 
 print(type(data))
 
-n_clusters = 16
+n_clusters = 5
 
 df = pd.DataFrame(data)
 columns = list(df)
@@ -59,4 +59,4 @@ for r in range(0, len(features)): # r represents the number of features we are a
 	print(len(best_features))
 
 for i in range(0, len(best_features_per_num_of_features)):
-	print("Best features for " + str(i) + ": " + str(best_features_per_num_of_features[i]) )
+	print("Best features for " + str(i + 1) + ": " + str(len(best_features_per_num_of_features[i])) )

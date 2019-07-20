@@ -116,5 +116,5 @@ def longest_run_ones_in_a_block_test(bits):
     p = gammaincc(K/2.0, chi_sq/2.0)
     
     success = (p >= 0.01)
-    return (success,p,None)
+    return (success,p,None,-1)
 

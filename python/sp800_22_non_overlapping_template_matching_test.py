@@ -110,4 +110,4 @@ def non_overlapping_template_matching_test(bits):
     p = gammaincc(N/2.0, chisq/2.0) # Compute P value
 
     success = ( p >= 0.01)
-    return (success,p,None)
+    return (success,p,None,chisq/2.0)

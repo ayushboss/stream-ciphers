@@ -8,7 +8,7 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 import csv
 
-data = pd.read_csv('cluster_data.csv', error_bad_lines=False, engine="python") #reads and parses the data
+data = pd.read_csv('../cluster_data.csv', error_bad_lines=False, engine="python") #reads and parses the data
 print(data)
 print(data.head())
 print (len(data))

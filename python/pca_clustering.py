@@ -14,7 +14,7 @@ d = 'd'
 
 z_scaler = StandardScaler()
 
-data = pd.read_csv('../cluster_datae.csv', error_bad_lines=False, engine="python") #reads and parses the data
+data = pd.read_csv('../cluster_data.csv', error_bad_lines=False, engine="python") #reads and parses the data
 print(data)
 print(data.head())
 
@@ -50,7 +50,7 @@ and how much they contribute
 to each of the principal components
 '''
 
-pca_df = pd.DataFrame(pca_data, index=["Indices", "Entropy", "Compression"], columns=labels)
+pca_df = pd.DataFrame(pca_data, index=["Indices", "Entropy", "Compression", "DFT", "Non Overlapping", "Overlapping", "Universal", "Linear Complexity"], columns=labels)
 plt.scatter(pca_df.PC1, pca_df.PC2)
 plt.title("PCA Graph")
 plt.xlabel("PCA1 %")
