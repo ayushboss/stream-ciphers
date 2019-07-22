@@ -6,10 +6,7 @@ import matplotlib.pyplot as plt
 from sklearn.preprocessing import StandardScaler
 import csv
 #add up and knock down
-wt = ['wt' + str(i) for i in range(1, 306)]
-ko = ['ko' + str(i) for i in range(1, 306)]
-
-s='s'
+s = 's'
 d = 'd'
 
 z_scaler = StandardScaler()
@@ -50,7 +47,7 @@ and how much they contribute
 to each of the principal components
 '''
 
-pca_df = pd.DataFrame(pca_data, index=["Indices", "Entropy", "Compression", "DFT", "Non Overlapping", "Overlapping", "Universal", "Linear Complexity"], columns=labels)
+pca_df = pd.DataFrame(pca_data, index=["Entropy", "Compression", "Monobit", "DFT", "Non Overlapping", "Overlapping", "Universal", "Linear Complexity"], columns=labels)
 plt.scatter(pca_df.PC1, pca_df.PC2)
 plt.title("PCA Graph")
 plt.xlabel("PCA1 %")

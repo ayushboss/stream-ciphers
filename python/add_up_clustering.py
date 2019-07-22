@@ -20,6 +20,8 @@ print(type(data))
 
 n_clusters = 5
 
+labels = ["Entropy", " Compression", " Monobit", " DFT", " Non-Overlapping", " Overlapping", " Universal", " Linear Complexity"]
+correlating_labels=["Entropy", "Compression", "Monobit", "DFT", "Non-Overlapping", "Overlapping", "Universal", "Linear Complexity"]
 df = pd.DataFrame(data)
 columns = list(df)
 features = []
@@ -29,9 +31,23 @@ for column in df:
 
 #generates a heatmap that we can use to find strongly correlated values
 plt.figure(figsize=(12,10))
-cor = df.corr()
+cor = df.corr(method='pearson')
 sns.heatmap(cor, annot=True, cmap=plt.cm.Reds)
 plt.show()
+
+df.drop(df.index[0])
+
+correlations = {}
+
+
+for i in cor:
+	print ("yoted: " + str(i))
+
+for i in range(0, len(labels))
+	label = labels[i]
+	cor_target = abs(cor[label])
+	relevant_features = cor_target[cor_target>0.5]
+	correlations[correlating_labels[i]] = relevant_features
 
 #attempt add up	
 
@@ -50,6 +66,7 @@ for r in range(0, len(features)): # r represents the number of features we are a
 
 		if (d in features_already_included):
 			continue
+
 
 		feature = features[d].copy() # returns the exact feature that we are looking at rn
 		best_features.append(features[d])
