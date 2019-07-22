@@ -43,11 +43,30 @@ correlations = {}
 for i in cor:
 	print ("yoted: " + str(i))
 
-for i in range(0, len(labels))
+for i in range(0, len(labels)):
 	label = labels[i]
 	cor_target = abs(cor[label])
 	relevant_features = cor_target[cor_target>0.5]
 	correlations[correlating_labels[i]] = relevant_features
+
+print("YESFIOSHEPFG")
+	
+for l in range(0,len(features)):
+	for m in range(l, len(features)):
+		if (m >= len(features)):
+			continue
+
+		i = correlating_labels[l]
+		j = features[m]
+
+		print (correlations[i])
+
+		if (np.logical_and(l != m,correlating_labels[l] in correlations[i])):
+			features.pop(m)
+			j-=1
+
+
+print("Gorbachev: " + str(len(features)))
 
 #attempt add up	
 
@@ -64,9 +83,11 @@ for r in range(0, len(features)): # r represents the number of features we are a
 	best_coeff_idx = 0
 	for d in range(0, len(features)):
 
-		if (d in features_already_included):
+		if (r == d):
 			continue
 
+		if (d in features_already_included):
+			continue
 
 		feature = features[d].copy() # returns the exact feature that we are looking at rn
 		best_features.append(features[d])

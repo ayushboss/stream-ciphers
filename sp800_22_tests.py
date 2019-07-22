@@ -186,6 +186,9 @@ for r in range(instance_amnt):
             if plist:
                 for pval in plist:
                     print("P="+str(pval))
+            if score != -1 and testname != 'approximate_entropy_test':
+                print(testname)
+                additional_data[testname] = score
         else:
             print("Test name (%s) not known" % args.ttestname)
             exit()
@@ -238,6 +241,7 @@ for r in range(instance_amnt):
         f.write(("Compression Value\t\t" + str(get_compressed_ratio(s)) + "\n"))    
         row = [str(entropy(bits)), str(get_compressed_ratio(s))]
         for idx in additional_data:
+            print(idx)
             row.append(additional_data[idx])
         with open("cluster_data.csv", "a") as csvfile:
             writer = csv.writer(csvfile)
