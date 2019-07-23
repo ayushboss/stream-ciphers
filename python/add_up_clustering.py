@@ -46,7 +46,7 @@ for i in cor:
 for i in range(0, len(labels)):
 	label = labels[i]
 	cor_target = abs(cor[label])
-	relevant_features = cor_target[cor_target>0.5]
+	relevant_features = cor_target[cor_target>0.7]
 	correlations[correlating_labels[i]] = relevant_features
 
 print("YESFIOSHEPFG")
