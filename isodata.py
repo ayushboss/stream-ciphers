@@ -1,8 +1,9 @@
 import numpy as np
 from sklearn.metrics import pairwise_distances_argmin
 import matplotlib.pyplot as plt
+from scipy.spatial import distance
 
-def find_clusters(B, n_clusters, rseed=2, iterations = 10, theta_N = 3):
+def find_clusters(B, n_clusters, rseed=2, iterations = 10, theta_N):
     # 1. Randomly choose clusters
     X = np.array(B)
     rng = np.random.RandomState(rseed)
@@ -30,10 +31,39 @@ def find_clusters(B, n_clusters, rseed=2, iterations = 10, theta_N = 3):
 
 	    # compute the average distance between points in clusters and the centers of the clusters
 
+	    avg_distance = [] # index should be center id, returns average distance
+
+	    for i in range(np.amax(labels)):
+	    	cum_dist = 0
+	    	total_tested = 0
+	    	if (len(centers[i]) == 0):
+	    		avg_distance.append(0)
+	    		continue
+	    	#i represents the current cluster that we are looking at
+	    	print("The current centroid distance being calculated is: " + str(i) + ", size is " + str(len(centers[i])))
+	    	for j in range(len(X[j])):
+	    		if (labels[j] != i): #making sure we are calculating the value for the right centroid id
+	    			break
+	    		each_point = X[j]
+	    		dist = distance.euclidean(each_point, centers[i])
+	    		cum_dist += dist
+	    		total_tested++
+	    	avg_distance.append(cum_dist/total_tested)
+
+	    #compute the overall distance from samples to their centroids
+	    overall_average_distance = 0
+	    for i in range(np.amax(labels)):
+	    	if (len(centers[i]) == 0)
+	    		continue
+	    	freq_i = list(labels.flatten()).count(i)
+	    	overall_average_distance += freq_i * avg_distance[i]
+	    overall_average_distance /= len(X)
+
 	    # 2b. Find new centers from means of points
 	    new_centers = np.array([X[labels == i].mean(0)
 	                            for i in range(n_clusters)])
 	    # 2c. Check for convergence
+	    # TODO: Need to implement Prof's convergence function
 	    if np.all(centers == new_centers):
 	        print("Breaking due to repeat of centers")
 	        break
@@ -44,7 +74,3 @@ def find_clusters(B, n_clusters, rseed=2, iterations = 10, theta_N = 3):
 	    plt.show()
 	    input("Press Enter to continue...")
     return centers, labels
-#centers, labels = find_clusters(X, 4)
-
-#plt.scatter(X[:, 0], X[:, 1], c=labels,
-#           s=50, cmap='viridis');
