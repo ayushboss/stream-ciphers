@@ -12,7 +12,10 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.feature_selection import RFE
 from sklearn.linear_model import RidgeCV, LassoCV, Ridge, Lasso
-
+import sys
+import os
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+from isodata import find_clusters
 
 data = pd.read_csv('../cluster_data.csv', error_bad_lines=False, engine="python") #reads and parses the data
 
@@ -71,6 +74,7 @@ print("Gorbachev: " + str(len(features)))
 #attempt add up	
 
 best_features_per_num_of_features = []
+best_coeff_per_num_of_features = []
 
 features_already_included = []
 for r in range(0, len(features)): # r represents the number of features we are adding
@@ -107,7 +111,18 @@ for r in range(0, len(features)): # r represents the number of features we are a
 	best_features.append(features[best_coeff_idx])
 	features_already_included.append(best_coeff_idx)
 	best_features_per_num_of_features.append(best_features)
+	best_coeff_per_num_of_features.append(best_coeff)
 	print(len(best_features))
 
 for i in range(0, len(best_features_per_num_of_features)):
 	print("Best features for " + str(i + 1) + ": " + str(len(best_features_per_num_of_features[i])) )
+
+centers, labels = find_clusters(B = features, n_clusters = 2, rseed = 2, iterations = 10)
+features_np = np.array(features)
+
+plt.scatter(features_np[:, 0], features_np[:, 1], c=labels,
+           s=50, cmap='viridis')
+plt.show()
+#best_coeff_per_num_of_features indicates the silhouette coefficient 
+
+

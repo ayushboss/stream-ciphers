@@ -156,7 +156,12 @@ for r in range(instance_amnt):
     start_time = time.time()
     bits = []
     for r in range(bits_per_instance):
-        bits.append(random.randrange(0,2));
+        # if len(bits) >= bits_per_instance:
+        #     break
+        # bitstring = '{0:08b}'.format(random.randrange(0,2))
+        # for i in range(0, len(bitstring)):
+        #     bits.append(ord(bitstring[i])-ord('0'))
+        bits.append(random.randrange(0,2))
 
     get_compressed_ratio(bits)
 
