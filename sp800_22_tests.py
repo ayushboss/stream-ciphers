@@ -147,9 +147,18 @@ bits_per_instance = int(input("# of bits per instance: "))
 
 x = 1
 
-filename = "cluster_data.csv"
+filename = "cluster_datapy.csv"
 bnb = open(filename, "w+")
 bnb.close()
+
+name_row = ["Entropy", "Compression Ratio", "Monobit", "Frequency Within Block", "Runs",
+            "Longest Runs in Ones", "Binary Matrix Rank", "DFT", 
+            "Non-Overlapping Template", "Overlapping Template", "Maurer's Universal", 
+            "Linear Complexity"]
+
+with open("cluster_datapy.csv", "a") as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(name_row)
 
 for r in range(instance_amnt):
     print("-----------------------\tIteration " + str(x) + "\t-----------------------")
@@ -246,9 +255,9 @@ for r in range(instance_amnt):
         f.write(("Compression Value\t\t" + str(get_compressed_ratio(s)) + "\n"))    
         row = [str(entropy(bits)), str(get_compressed_ratio(s))]
         for idx in additional_data:
-            print(idx)
+            print('yeet:' + str(idx))
             row.append(additional_data[idx])
-        with open("cluster_data.csv", "a") as csvfile:
+        with open("cluster_datapy.csv", "a") as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(row)
         x+=1

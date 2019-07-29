@@ -11,10 +11,12 @@ d = 'd'
 
 z_scaler = StandardScaler()
 
-data = pd.read_csv('../cluster_data.csv', error_bad_lines=False, engine="python") #reads and parses the data
+data = pd.read_csv('../cluster_datapy.csv', error_bad_lines=False, engine="python") #reads and parses the data
 print(data)
 print(data.head())
 
+print("______________________ CHECK _____________________________")
+print(data.columns)
 '''
 the following code generates and fits
 our data to a PCA model
@@ -25,7 +27,10 @@ pca = PCA()
 pca.fit(scaled_data)
 pca_data = pca.transform(scaled_data)
 
+
+
 per_var = np.round(pca.explained_variance_ratio_ * 100, decimals = 1)
+print("testing length: " + str(len(per_var)))
 labels = ['PC' + str(x) for x in range(1, len(per_var) + 1)] #generates labels for the plots based on the number of principal categories that were calculated
 
 '''
@@ -47,7 +52,10 @@ and how much they contribute
 to each of the principal components
 '''
 
-pca_df = pd.DataFrame(pca_data, index=["Entropy", "Compression", "Monobit", "DFT", "Non Overlapping", "Overlapping", "Universal", "Linear Complexity"], columns=labels)
+pca_df = pd.DataFrame(pca_data, index=["Entropy", "Compression Ratio", "Monobit", "Frequency Within Block", "Runs",
+            "Longest Runs in Ones", "Binary Matrix Rank", "DFT", 
+            "Non-Overlapping Template", "Overlapping Template", "Maurer's Universal", 
+            "Linear Complexity"], columns=labels)
 plt.scatter(pca_df.PC1, pca_df.PC2)
 plt.title("PCA Graph")
 plt.xlabel("PCA1 %")

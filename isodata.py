@@ -3,13 +3,13 @@ from sklearn.metrics import pairwise_distances_argmin
 import matplotlib.pyplot as plt
 from scipy.spatial import distance
 
-def find_clusters(B, n_clusters, rseed=2, iterations = 10, theta_N):
+def find_clusters(B, n_desired_clusters, rseed=2, iterations = 10, theta_N):
     # 1. Randomly choose clusters
     X = np.array(B)
     rng = np.random.RandomState(rseed)
     i = rng.permutation(X.shape[0])[:n_clusters]
     centers = X[i]
-    cluster_amnt = n_clusters
+    cluster_amnt = n_desired_clusters
     # runs the centroid algorithm once.
     for i in range(iterations):
 	    # 2a. Assign labels based on closest center
@@ -28,6 +28,10 @@ def find_clusters(B, n_clusters, rseed=2, iterations = 10, theta_N):
 	    		cluster_amnt-=1
 	    		labels = pairwise_distances_argmin(X, centers) #re-assigns the cluster centers after removing the center
 	    		print ("removed " + str(i) + " to achieve a centroid set of " + str(labels))
+
+	    #make an array containing all elements of a certain value
+	    
+
 
 	    # compute the average distance between points in clusters and the centers of the clusters
 
@@ -58,6 +62,13 @@ def find_clusters(B, n_clusters, rseed=2, iterations = 10, theta_N):
 	    	freq_i = list(labels.flatten()).count(i)
 	    	overall_average_distance += freq_i * avg_distance[i]
 	    overall_average_distance /= len(X)
+
+	    #step 7 in Tou-Gonsalvez
+
+
+	    #step 8 in Tou-Gonsalvez
+	    if (i)
+
 
 	    # 2b. Find new centers from means of points
 	    new_centers = np.array([X[labels == i].mean(0)

@@ -73,6 +73,6 @@ def frequency_within_block_test(bits):
     
     p = gammaincc((num_of_blocks/2.0),float(chisq)/2.0)
     success = (p >= 0.01)
-    return (success,p,None, -1)
+    return (success,p,None, float(chisq)/2.0)
 
 

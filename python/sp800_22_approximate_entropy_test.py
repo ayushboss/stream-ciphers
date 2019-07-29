@@ -87,7 +87,7 @@ def approximate_entropy_test(bits):
     p = gammaincc(2**(m-1),(chisq/2.0))
     
     success = (p >= 0.01)
-    return (success, p, None,-1)
+    return (success, p, None, chisq/2.0)
 
 if __name__ == "__main__":
     bits = [1,1,0,0,1,0,0,1,0,0,0,0,1,1,1,1,

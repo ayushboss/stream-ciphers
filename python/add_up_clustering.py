@@ -14,17 +14,23 @@ from sklearn.feature_selection import RFE
 from sklearn.linear_model import RidgeCV, LassoCV, Ridge, Lasso
 import sys
 import os
-sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
-from isodata import find_clusters
+#sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+#from isodata import find_clusters
 
-data = pd.read_csv('../cluster_data.csv', error_bad_lines=False, engine="python") #reads and parses the data
+data = pd.read_csv('../cluster_datapy.csv', error_bad_lines=False, engine="python") #reads and parses the data
 
 print(type(data))
 
 n_clusters = 5
 
-labels = ["Entropy", " Compression", " Monobit", " DFT", " Non-Overlapping", " Overlapping", " Universal", " Linear Complexity"]
-correlating_labels=["Entropy", "Compression", "Monobit", "DFT", "Non-Overlapping", "Overlapping", "Universal", "Linear Complexity"]
+labels = ["Entropy", "Compression Ratio", "Monobit", "Frequency Within Block", "Runs",
+            "Longest Runs in Ones", "Binary Matrix Rank", "DFT", 
+            "Non-Overlapping Template", "Overlapping Template", "Maurer's Universal", 
+            "Linear Complexity"]
+correlating_labels=["Entropy", "Compression Ratio", "Monobit", "Frequency Within Block", "Runs",
+            "Longest Runs in Ones", "Binary Matrix Rank", "DFT", 
+            "Non-Overlapping Template", "Overlapping Template", "Maurer's Universal", 
+            "Linear Complexity"]
 df = pd.DataFrame(data)
 columns = list(df)
 features = []
@@ -42,18 +48,14 @@ df.drop(df.index[0])
 
 correlations = {}
 
-
-for i in cor:
-	print ("yoted: " + str(i))
-
 for i in range(0, len(labels)):
 	label = labels[i]
 	cor_target = abs(cor[label])
-	relevant_features = cor_target[cor_target>0.7]
+	relevant_features = cor_target[cor_target>0.15]
 	correlations[correlating_labels[i]] = relevant_features
-
-print("YESFIOSHEPFG")
 	
+#deleting highly correlated values in order to get only one value from each cluster
+
 for l in range(0,len(features)):
 	for m in range(l, len(features)):
 		if (m >= len(features)):
@@ -62,14 +64,11 @@ for l in range(0,len(features)):
 		i = correlating_labels[l]
 		j = features[m]
 
-		print (correlations[i])
+		#correlations[i].keys() gives me the names of the correlating features
 
-		if (np.logical_and(l != m,correlating_labels[l] in correlations[i])):
+		if (np.logical_and(l != m,correlating_labels[m] in correlations[i].keys())):
 			features.pop(m)
-			j-=1
-
-
-print("Gorbachev: " + str(len(features)))
+			m-=1
 
 #attempt add up	
 
@@ -77,29 +76,30 @@ best_features_per_num_of_features = []
 best_coeff_per_num_of_features = []
 
 features_already_included = []
+
+features_already_included_hashing = [False] * len(features)
+
 for r in range(0, len(features)): # r represents the number of features we are adding
-	print(len(features_already_included))
 	best_features = []
-	for i in features_already_included:
-		best_features.append(features[i])
-	print ("jgh: " + str(best_features) )
+
+	for i in range(0,len(features_already_included_hashing)):
+		if (features_already_included_hashing[i] == True):
+			best_features.append(features[i])
+
 	best_coeff = 0
 	best_coeff_idx = 0
 	for d in range(0, len(features)):
-
-		if (r == d):
-			continue
-
-		if (d in features_already_included):
+		if (features_already_included_hashing[d] == True):
 			continue
 
 		feature = features[d].copy() # returns the exact feature that we are looking at rn
 		best_features.append(features[d])
 		clusterer = KMeans(n_clusters=n_clusters, random_state=10)
 		
+		#print (features)
+
 		best_features_df = pd.DataFrame(best_features)
-		best_features_df_trans = best_features_df.transpose()
-		print(len(best_features_df_trans))
+		best_features_df_trans = best_features_df.transpose() #transpose to get everything in terms of trial number rather than test
 
 		cluster_labels = clusterer.fit_predict(best_features_df_trans)
 		silhouette_avg = silhouette_score(best_features_df_trans, cluster_labels)
@@ -108,21 +108,24 @@ for r in range(0, len(features)): # r represents the number of features we are a
 			best_coeff = silhouette_avg
 		print("Sillhouette score for feature " + str(d) + " is " + str(silhouette_avg))
 		del best_features[-1]
+
 	best_features.append(features[best_coeff_idx])
 	features_already_included.append(best_coeff_idx)
+	features_already_included_hashing[best_coeff_idx] = True
 	best_features_per_num_of_features.append(best_features)
 	best_coeff_per_num_of_features.append(best_coeff)
-	print(len(best_features))
 
 for i in range(0, len(best_features_per_num_of_features)):
-	print("Best features for " + str(i + 1) + ": " + str(len(best_features_per_num_of_features[i])) )
+	print("_____________________ Best features for " + str(i + 1) + ":  _____________________")
+	for x in range(0, len(best_features_per_num_of_features[i])):
+		print(best_features_per_num_of_features[i][x].name)
 
-centers, labels = find_clusters(B = features, n_clusters = 2, rseed = 2, iterations = 10)
-features_np = np.array(features)
+# centers, labels = find_clusters(B = features, n_clusters = 2, rseed = 2, iterations = 10)
+# features_np = np.array(features)
 
-plt.scatter(features_np[:, 0], features_np[:, 1], c=labels,
-           s=50, cmap='viridis')
-plt.show()
-#best_coeff_per_num_of_features indicates the silhouette coefficient 
+# plt.scatter(features_np[:, 0], features_np[:, 1], c=labels,
+#            s=50, cmap='viridis')
+# plt.show()
+# #best_coeff_per_num_of_features indicates the silhouette coefficient 
 
 
