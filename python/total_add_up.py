@@ -54,22 +54,6 @@ for i in range(0, len(labels)):
 	relevant_features = cor_target[cor_target>0.15]
 	correlations[correlating_labels[i]] = relevant_features
 	
-#deleting highly correlated values in order to get only one value from each cluster
-
-for l in range(0,len(features)):
-	for m in range(l, len(features)):
-		if (m >= len(features)):
-			continue
-
-		i = correlating_labels[l]
-		j = features[m]
-
-		#correlations[i].keys() gives me the names of the correlating features
-
-		if (np.logical_and(l != m,correlating_labels[m] in correlations[i].keys())):
-			features.pop(m)
-			m-=1
-
 #attempt add up	
 
 best_features_per_num_of_features = []
@@ -119,13 +103,3 @@ for i in range(0, len(best_features_per_num_of_features)):
 	print("_____________________ Best features for " + str(i + 1) + ":  _____________________")
 	for x in range(0, len(best_features_per_num_of_features[i])):
 		print(best_features_per_num_of_features[i][x].name)
-
-# centers, labels = find_clusters(B = features, n_clusters = 2, rseed = 2, iterations = 10)
-# features_np = np.array(features)
-
-# plt.scatter(features_np[:, 0], features_np[:, 1], c=labels,
-#            s=50, cmap='viridis')
-# plt.show()
-# #best_coeff_per_num_of_features indicates the silhouette coefficient 
-
-# make sure with professor that our add up algorithm is actually not ass lmao
