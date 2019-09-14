@@ -142,9 +142,6 @@ if args.list_tests:
 #bits = read_bits_from_file(filename,bigendian) 
 f = open("feature_test_summary.txt", "w+")
 
-instance_amnt = int(input("# of instances: "))
-bits_per_instance = int(input("# of bits per instance: "))
-
 x = 1
 
 filename = "cluster_datapy.csv"
@@ -160,17 +157,8 @@ with open("cluster_datapy.csv", "a") as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(name_row)
 
-for r in range(instance_amnt):
-    print("-----------------------\tIteration " + str(x) + "\t-----------------------")
+def test_func(bits):
     start_time = time.time()
-    bits = []
-    for r in range(bits_per_instance):
-        # if len(bits) >= bits_per_instance:
-        #     break
-        # bitstring = '{0:08b}'.format(random.randrange(0,2))
-        # for i in range(0, len(bitstring)):
-        #     bits.append(ord(bitstring[i])-ord('0'))
-        bits.append(random.randrange(0,2))
 
     get_compressed_ratio(bits)
 
@@ -239,8 +227,6 @@ for r in range(instance_amnt):
             results.append((summary_name,summary_p, summary_result))
             
         print()
-        f.write("\n\nSUMMARY for Iteration " + str(x) + "\n")
-        f.write("-------\n")
         for result in results:
             (summary_name,summary_p, summary_result) = result
             f.write(str(summary_name) + '\t\t' + str(summary_p) + '\t\t' + str(summary_result) + '\n')
@@ -260,12 +246,11 @@ for r in range(instance_amnt):
         with open("cluster_datapy.csv", "a") as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(row)
-        x+=1
         end = time.time()
         print("Duration: " + str(end-start_time))
 
-f.close()
-csvfile.close()
+    f.close()
+    csvfile.close()
 
 """
     look at the different things for entropy
