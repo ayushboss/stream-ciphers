@@ -37,6 +37,8 @@ import os
 
 import time
 
+import pandas as pd
+
 # def get_compressed_ratio(a):
 #     uncompressed = io.BytesIO()
 #     compressed = io.BytesIO()
@@ -144,18 +146,17 @@ f = open("feature_test_summary.txt", "w+")
 
 x = 1
 
-filename = "cluster_datapy.csv"
-bnb = open(filename, "w+")
-bnb.close()
-
 name_row = ["Entropy", "Compression Ratio", "Monobit", "Frequency Within Block", "Runs",
             "Longest Runs in Ones", "Binary Matrix Rank", "DFT", 
             "Non-Overlapping Template", "Overlapping Template", "Maurer's Universal", 
             "Linear Complexity"]
 
-with open("cluster_datapy.csv", "a") as csvfile:
-            writer = csv.writer(csvfile)
-            writer.writerow(name_row)
+df = pd.read_csv("cluster_datapy.csv")
+
+#if (df.empty): #ensures that we don't repeatedly add a header if there is one already present.
+#    with open("cluster_datapy.csv", "a") as csvfile:
+#                writer = csv.writer(csvfile)
+#                writer.writerow(name_row)
 
 def test_func(bits):
     start_time = time.time()
@@ -250,7 +251,6 @@ def test_func(bits):
         print("Duration: " + str(end-start_time))
 
     f.close()
-    csvfile.close()
 
 """
     look at the different things for entropy
