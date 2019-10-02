@@ -158,7 +158,7 @@ df = pd.read_csv("cluster_datapy.csv")
 #                writer = csv.writer(csvfile)
 #                writer.writerow(name_row)
 
-def test_func(bits):
+def test_func(bits, csv_name):
     start_time = time.time()
 
     get_compressed_ratio(bits)
@@ -244,7 +244,7 @@ def test_func(bits):
         for idx in additional_data:
             print('yeet:' + str(idx))
             row.append(additional_data[idx])
-        with open("cluster_datapy.csv", "a") as csvfile:
+        with open(csv_name, "a") as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(row)
         end = time.time()
