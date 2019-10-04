@@ -153,10 +153,11 @@ name_row = ["Entropy", "Compression Ratio", "Monobit", "Frequency Within Block",
 
 df = pd.read_csv("cluster_datapy.csv")
 
-#if (df.empty): #ensures that we don't repeatedly add a header if there is one already present.
-#    with open("cluster_datapy.csv", "a") as csvfile:
-#                writer = csv.writer(csvfile)
-#                writer.writerow(name_row)
+
+def append_header(file):
+    with open(file, "a") as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(name_row)
 
 def test_func(bits, csv_name):
     start_time = time.time()
@@ -249,8 +250,6 @@ def test_func(bits, csv_name):
             writer.writerow(row)
         end = time.time()
         print("Duration: " + str(end-start_time))
-
-    f.close()
 
 """
     look at the different things for entropy

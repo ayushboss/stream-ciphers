@@ -1,3 +1,5 @@
 Entropy,Compression Ratio,Monobit,Frequency Within Block,Runs,Longest Runs in Ones,Binary Matrix Rank,DFT,Non-Overlapping Template,Overlapping Template,Maurer's Universal,Linear Complexity
 13.15207944883182,14.170045998160074,0.8099970605472826,45.696285961704994,0.4846829162205244,3.014320355557645,1.7097984225974858,0.5821057616915385,0.0004549834545507777,1.4856270152133233,0.0012673643691549327,0.7444988435346351
 13.151819261728653,14.162424086393248,0.6231819037257061,46.48373905513329,0.38532517153070983,1.7203284747430798,0.16644226312692964,0.7228346271554269,0.001355456115917846,1.5355302209717792,0.0022395562959371057,1.8684818140201778
+Entropy,Compression Ratio,Monobit,Frequency Within Block,Runs,Longest Runs in Ones,Binary Matrix Rank,DFT,Non-Overlapping Template,Overlapping Template,Maurer's Universal,Linear Complexity
+Entropy,Compression Ratio,Monobit,Frequency Within Block,Runs,Longest Runs in Ones,Binary Matrix Rank,DFT,Non-Overlapping Template,Overlapping Template,Maurer's Universal,Linear Complexity
