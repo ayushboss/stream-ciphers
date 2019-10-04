@@ -17,7 +17,7 @@ import os
 #sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 #from isodata import find_clusters
 
-data = pd.read_csv('../cluster_datapy.csv', error_bad_lines=False, engine="python") #reads and parses the data
+data = pd.read_csv('../cluster_data_xoroshiro.csv', error_bad_lines=False, engine="python") #reads and parses the data
 
 print(type(data))
 
@@ -32,6 +32,7 @@ correlating_labels=["Entropy", "Compression Ratio", "Monobit", "Frequency Within
             "Non-Overlapping Template", "Overlapping Template", "Maurer's Universal", 
             "Linear Complexity"]
 df = pd.DataFrame(data)
+
 columns = list(df)
 features = []
 for column in df:
@@ -41,6 +42,9 @@ for column in df:
 #generates a heatmap that we can use to find strongly correlated values
 plt.figure(figsize=(12,10))
 cor = df.corr(method='pearson')
+
+print(df.dtypes);
+
 sns.heatmap(cor, annot=True, cmap=plt.cm.Reds)
 plt.show()
 
@@ -51,7 +55,7 @@ correlations = {}
 for i in range(0, len(labels)):
 	label = labels[i]
 	cor_target = abs(cor[label])
-	relevant_features = cor_target[cor_target>0.15]
+	relevant_features = cor_target[cor_target>0.05]
 	correlations[correlating_labels[i]] = relevant_features
 	
 #deleting highly correlated values in order to get only one value from each cluster
