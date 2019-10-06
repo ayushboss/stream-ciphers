@@ -17,7 +17,7 @@ import os
 #sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 #from isodata import find_clusters
 
-data = pd.read_csv('../cluster_data_xoroshiro.csv', error_bad_lines=False, engine="python") #reads and parses the data
+data = pd.read_csv('../cluster_data_philox.csv', error_bad_lines=False, engine="python") #reads and parses the data
 
 print(type(data))
 
