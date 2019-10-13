@@ -12,6 +12,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.feature_selection import RFE
 from sklearn.linear_model import RidgeCV, LassoCV, Ridge, Lasso
+import pingouin as pg
 import sys
 import os
 #sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -43,7 +44,8 @@ for column in df:
 plt.figure(figsize=(12,10))
 cor = df.corr(method='pearson')
 
-print(df.dtypes);
+print("checkpoint")
+print(pg.pairwise_corr(df).sort_values(by=['p-unc'])[['X', 'Y', 'n', 'r', 'p-unc']])
 
 sns.heatmap(cor, annot=True, cmap=plt.cm.Reds)
 plt.show()
