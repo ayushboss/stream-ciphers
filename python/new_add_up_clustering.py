@@ -19,7 +19,7 @@ import os
 #sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 #from isodata import find_clusters
 
-data = pd.read_csv('../cluster_data_philox.csv', error_bad_lines=False, engine="python") #reads and parses the data
+data = pd.read_csv('../cluster_data_xoroshiro.csv', error_bad_lines=False, engine="python") #reads and parses the data
 
 print(type(data))
 
@@ -58,10 +58,10 @@ pingouin_corr = pd.DataFrame()
 for x in df.columns:
     for y in df.columns:
         corr = stats.pearsonr(df[x], df[y])
-        pingouin_corr.loc[x,y] = corr[1]
-print("lets go")
-print(pingouin_corr)
-
+        if (x == y):
+        	pingouin_corr.loc[x,y] = 1
+        else:
+        	pingouin_corr.loc[x,y] = corr[1]
 
 sns.heatmap(pingouin_corr, annot=True, cmap=plt.cm.Reds)
 plt.show()
@@ -72,8 +72,8 @@ correlations = {}
 
 for i in range(0, len(labels)):
 	label = labels[i]
-	cor_target = abs(cor[label])
-	relevant_features = cor_target[cor_target>0.05]
+	cor_target = abs(pingouin_corr[label])
+	relevant_features = cor_target[cor_target>0.5] #we're gonna delete all values with correlations above the threshold
 	correlations[correlating_labels[i]] = relevant_features
 	
 #deleting highly correlated values in order to get only one value from each cluster
@@ -87,6 +87,9 @@ for l in range(0,len(features)):
 		j = features[m]
 
 		#correlations[i].keys() gives me the names of the correlating features
+
+		print (i)
+		print (correlations[i].keys())
 
 		if (np.logical_and(l != m,correlating_labels[m] in correlations[i].keys())):
 			features.pop(m)
