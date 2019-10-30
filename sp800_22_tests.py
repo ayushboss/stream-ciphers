@@ -164,9 +164,6 @@ def test_func(bits, csv_name):
 
     get_compressed_ratio(bits)
 
-    #for r in bits:
-    #    print(r)
-
     additional_data = {}
 
     gotresult=False
