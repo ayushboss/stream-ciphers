@@ -12,13 +12,14 @@ from sklearn.model_selection import train_test_split
 from sklearn.linear_model import LinearRegression
 from sklearn.feature_selection import RFE
 from sklearn.linear_model import RidgeCV, LassoCV, Ridge, Lasso
+from scipy import stats
 import pingouin as pg
 import sys
 import os
 #sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 #from isodata import find_clusters
 
-data = pd.read_csv('../cluster_data_philox.csv', error_bad_lines=False, engine="python") #reads and parses the data
+data = pd.read_csv('../cluster_data_xoroshiro.csv', error_bad_lines=False, engine="python") #reads and parses the data
 
 print(type(data))
 
@@ -47,7 +48,22 @@ cor = df.corr(method='pearson')
 print("checkpoint")
 print(pg.pairwise_corr(df).sort_values(by=['p-unc'])[['X', 'Y', 'n', 'r', 'p-unc']])
 
-sns.heatmap(cor, annot=True, cmap=plt.cm.Reds)
+print("checkpoint 2")
+print(cor)
+
+pingouin_raw_corr = pg.pairwise_corr(df).sort_values(by=['p-unc'])[['X', 'Y', 'n', 'r', 'p-unc']]
+
+pingouin_corr = pd.DataFrame()
+
+for x in df.columns:
+    for y in df.columns:
+        corr = stats.pearsonr(df[x], df[y])
+        if (x == y):
+        	pingouin_corr.loc[x,y] = 1
+        else:
+        	pingouin_corr.loc[x,y] = corr[1]
+
+sns.heatmap(pingouin_corr, annot=True, cmap=plt.cm.Reds)
 plt.show()
 
 df.drop(df.index[0])
@@ -56,8 +72,8 @@ correlations = {}
 
 for i in range(0, len(labels)):
 	label = labels[i]
-	cor_target = abs(cor[label])
-	relevant_features = cor_target[cor_target>0.05]
+	cor_target = abs(pingouin_corr[label])
+	relevant_features = cor_target[cor_target>0.5] #we're gonna delete all values with correlations above the threshold
 	correlations[correlating_labels[i]] = relevant_features
 	
 #deleting highly correlated values in order to get only one value from each cluster
@@ -71,6 +87,9 @@ for l in range(0,len(features)):
 		j = features[m]
 
 		#correlations[i].keys() gives me the names of the correlating features
+
+		print (i)
+		print (correlations[i].keys())
 
 		if (np.logical_and(l != m,correlating_labels[m] in correlations[i].keys())):
 			features.pop(m)

@@ -37,6 +37,8 @@ import os
 
 import time
 
+import pandas as pd
+
 # def get_compressed_ratio(a):
 #     uncompressed = io.BytesIO()
 #     compressed = io.BytesIO()
@@ -142,30 +144,23 @@ if args.list_tests:
 #bits = read_bits_from_file(filename,bigendian) 
 f = open("feature_test_summary.txt", "w+")
 
-instance_amnt = int(input("# of instances: "))
-bits_per_instance = int(input("# of bits per instance: "))
-
 x = 1
-
-filename = "cluster_datapy.csv"
-bnb = open(filename, "w+")
-bnb.close()
 
 name_row = ["Entropy", "Compression Ratio", "Monobit", "Frequency Within Block", "Runs",
             "Longest Runs in Ones", "Binary Matrix Rank", "DFT", 
             "Non-Overlapping Template", "Overlapping Template", "Maurer's Universal", 
             "Linear Complexity"]
 
-with open("cluster_datapy.csv", "a") as csvfile:
+df = pd.read_csv("cluster_datapy.csv")
+
+
+def append_header(file):
+    with open(file, "a") as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(name_row)
 
-for r in range(instance_amnt):
-    print("-----------------------\tIteration " + str(x) + "\t-----------------------")
+def test_func(bits, csv_name):
     start_time = time.time()
-    bits = []
-    for r in range(bits_per_instance):
-        bits.append(random.randrange(0,2))
 
     get_compressed_ratio(bits)
 
@@ -234,8 +229,6 @@ for r in range(instance_amnt):
             results.append((summary_name,summary_p, summary_result))
             
         print()
-        f.write("\n\nSUMMARY for Iteration " + str(x) + "\n")
-        f.write("-------\n")
         for result in results:
             (summary_name,summary_p, summary_result) = result
             f.write(str(summary_name) + '\t\t' + str(summary_p) + '\t\t' + str(summary_result) + '\n')
@@ -252,15 +245,11 @@ for r in range(instance_amnt):
         for idx in additional_data:
             print('yeet:' + str(idx))
             row.append(additional_data[idx])
-        with open("cluster_datapy.csv", "a") as csvfile:
+        with open(csv_name, "a") as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(row)
-        x+=1
         end = time.time()
         print("Duration: " + str(end-start_time))
-
-f.close()
-csvfile.close()
 
 """
     look at the different things for entropy
