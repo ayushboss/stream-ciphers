@@ -19,7 +19,7 @@ import os
 #sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 #from isodata import find_clusters
 
-data = pd.read_csv('../cluster_data_xoroshiro.csv', error_bad_lines=False, engine="python") #reads and parses the data
+data = pd.read_csv('../cluster_data_PCG64.csv', error_bad_lines=False, engine="python") #reads and parses the data
 
 print(type(data))
 
@@ -57,11 +57,13 @@ pingouin_corr = pd.DataFrame()
 
 for x in df.columns:
     for y in df.columns:
-        corr = stats.pearsonr(df[x], df[y])
+        df[x] = np.nan_to_num(df[x])
+        df[y] = np.nan_to_num(df[y])
+        corr = stats.pearsonr(np.asarray(df[x], dtype="float"), np.asarray(df[y], dtype="float"))
         if (x == y):
-        	pingouin_corr.loc[x,y] = 1
+            pingouin_corr.loc[x,y] = 1
         else:
-        	pingouin_corr.loc[x,y] = corr[1]
+            pingouin_corr.loc[x,y] = corr[1]
 
 sns.heatmap(pingouin_corr, annot=True, cmap=plt.cm.Reds)
 plt.show()
