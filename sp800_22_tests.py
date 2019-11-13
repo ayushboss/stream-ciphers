@@ -151,7 +151,7 @@ name_row = ["Entropy", "Compression Ratio", "Monobit", "Frequency Within Block",
             "Non-Overlapping Template", "Overlapping Template", "Maurer's Universal", 
             "Linear Complexity"]
 
-df = pd.read_csv("cluster_datapy.csv")
+df = pd.read_csv("cluster_data/cluster_datapy.csv")
 
 
 def append_header(file):
@@ -242,7 +242,7 @@ def test_func(bits, csv_name):
         for idx in additional_data:
             print('yeet:' + str(idx))
             row.append(additional_data[idx])
-        with open(csv_name, "a") as csvfile:
+        with open("cluster_data/" + str(csv_name), "a") as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(row)
         end = time.time()
