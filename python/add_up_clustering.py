@@ -59,6 +59,7 @@ for x in df.columns:
     for y in df.columns:
         df[x] = np.nan_to_num(df[x])
         df[y] = np.nan_to_num(df[y])
+        print("checkpoint 3 " + str(x) + " " + str(y))
         corr = stats.pearsonr(np.asarray(df[x], dtype="float"), np.asarray(df[y], dtype="float"))
         if (x == y):
             pingouin_corr.loc[x,y] = 1
