@@ -155,7 +155,7 @@ df = pd.read_csv("cluster_data/cluster_datapy.csv")
 
 
 def append_header(file):
-    with open(file, "a") as csvfile:
+    with open("cluster_data/"+str(file), "a") as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(name_row)
 
