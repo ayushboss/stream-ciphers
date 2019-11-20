@@ -1,3 +1,5 @@
+#Thanks to https://gist.github.com/AlexandreAbraham/5544803
+
 def measurements_block(X, labels, metric='euclidean', n_jobs=1, **kwds):
     """Compute the Silhouette Coefficient for each sample.
     The Silhoeutte Coefficient is a measure of how well samples are clustered
