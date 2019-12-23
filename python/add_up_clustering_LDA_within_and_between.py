@@ -20,6 +20,10 @@ import clusteringscoring
 #sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 #from isodata import find_clusters
 
+def k_mean_distance(data, cx, cy, i_centroid, cluster_labels):
+        distances = [np.sqrt((x-cx)**2+(y-cy)**2) for (x, y) in data[cluster_labels == i_centroid]]
+        return distances
+
 data = pd.read_csv('../cluster_data/cluster_data_xoroshiro.csv', error_bad_lines=False, engine="python") #reads and parses the data
 
 print(type(data))
@@ -128,6 +132,12 @@ for r in range(0, len(features)): # r represents the number of features we are a
         #print (features)
 
         best_features_df = pd.DataFrame(best_features)
+
+        # class_feature_means = pd.DataFrame(columns=best_features_df.columns)
+        # for c, rows in best_features_df.head():
+        #     class_feature_means[c] = rows.mean()
+        # class_feature_means
+
         best_features_df_trans = best_features_df.transpose() #transpose to get everything in terms of trial number rather than test
 
         cluster_labels = clusterer.fit_predict(best_features_df_trans)
@@ -139,6 +149,19 @@ for r in range(0, len(features)): # r represents the number of features we are a
 
         print("Testing function: " + str(len(coefficientsBlock[0])) + " s " + str(len(coefficientsBlock[1])) + " s " + str(len(coefficientsBlock[2])))
         # Return value of the above function is [intra(A), nearest(b)]
+
+        allDistances = clusterer.fit_transform(best_features_df_trans)
+        clusterDistance = allDistances.min(axis=1)
+        w = np.mean(clusterDistance)
+
+        centroids = clusterer.cluster_centers_
+        
+        #1) FInd center of all clusters
+        #2) Find distance from each point to the mega-center
+        #3) Find Average of those distances
+        
+        print("centers: " + str(centroids))
+
 
         silhouette_avg = silhouette_score(best_features_df_trans, cluster_labels)
         if (silhouette_avg > best_coeff):
@@ -172,6 +195,9 @@ for x in range(0, len(best_overall_rep_feature_set)):
     print(best_overall_rep_feature_set[x].name)
 
 print("Best Coefficient: " + str(best_rep_coeff))
+
+
+
 
 # centers, labels = find_clusters(B = features, n_clusters = 2, rseed = 2, iterations = 10)
 # features_np = np.array(features)

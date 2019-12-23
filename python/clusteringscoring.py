@@ -1,5 +1,13 @@
 #Thanks to https://gist.github.com/AlexandreAbraham/5544803
 
+from itertools import combinations
+import numpy as np
+
+from sklearn.utils import check_random_state
+from sklearn.metrics.pairwise import distance_metrics
+from sklearn.metrics.pairwise import pairwise_distances
+from sklearn.externals.joblib import Parallel, delayed
+
 def measurements_block(X, labels, metric='euclidean', n_jobs=1, **kwds):
     """Compute the Silhouette Coefficient for each sample.
     The Silhoeutte Coefficient is a measure of how well samples are clustered
@@ -43,10 +51,12 @@ def measurements_block(X, labels, metric='euclidean', n_jobs=1, **kwds):
                                        **kwds)
     B = _nearest_cluster_distance_block(X, labels, metric, n_jobs=n_jobs,
                                         **kwds)
+
+    print("YEEEYE " + str(type(A)) + " " + str(type(B)))
     sil_samples = (B - A) / np.maximum(A, B)
     # nan values are for clusters of size 1, and should be 0
     # return [np.nan_to_num(sil_samples)]
-    return[A, B]
+    return[A, B, np.nan_to_num(sil_samples)]
 
 
 def _intra_cluster_distances_block_(subX, metric, **kwds):
