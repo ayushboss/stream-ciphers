@@ -196,11 +196,11 @@ for r in range(0, len(features)): # r represents the number of features we are a
         print("between cluster: " + str(b))
 
 
-        silhouette_avg = silhouette_score(best_features_df_trans, cluster_labels)
-        if (silhouette_avg > best_coeff):
+        dispersion_score = w/b
+        if (dispersion_score > best_coeff):
             best_coeff_idx = d
-            best_coeff = silhouette_avg
-        print("Sillhouette score for feature " + str(d) + " is " + str(silhouette_avg))
+            best_coeff = dispersion_score
+        print("Dispersion score for feature " + str(d) + " is " + str(dispersion_score))
         del best_features[-1]
 
     best_features.append(features[best_coeff_idx])
