@@ -17,6 +17,7 @@ import pingouin as pg
 import sys
 import os
 import clusteringscoring
+from scipy.spatial import distance
 #sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 #from isodata import find_clusters
 
@@ -161,6 +162,38 @@ for r in range(0, len(features)): # r represents the number of features we are a
         #3) Find Average of those distances
         
         print("centers: " + str(centroids))
+
+        for row in centroids:
+            print(str(type(row)) + ", , , , " + str(row.size))
+
+        averageCenterofCenters = [0]*(r+1) #r+1 is the number of features we have
+        columnNumber = 0
+        for row in centroids:
+            for column in np.nditer(row):
+                print("col: " + str(columnNumber) + ", " + str(column))
+                averageCenterofCenters[columnNumber] += column
+                columnNumber+=1
+            columnNumber = 0
+
+        counter=0
+        for idx in averageCenterofCenters:
+            averageCenterofCenters[counter] = idx/n_clusters
+            counter+=1
+
+        print("averages: " + str(averageCenterofCenters))
+        b=0
+
+        print("checking centers: " + str(centroids))
+
+        for point in centroids:
+           print(str(point) + ", " + str(averageCenterofCenters)) 
+           tempDist = distance.euclidean(point, averageCenterofCenters) 
+           b+=tempDist
+
+        b/=n_clusters
+
+        print("within cluster: " + str(w))
+        print("between cluster: " + str(b))
 
 
         silhouette_avg = silhouette_score(best_features_df_trans, cluster_labels)
