@@ -25,7 +25,7 @@ def k_mean_distance(data, cx, cy, i_centroid, cluster_labels):
         distances = [np.sqrt((x-cx)**2+(y-cy)**2) for (x, y) in data[cluster_labels == i_centroid]]
         return distances
 
-data = pd.read_csv('../cluster_data/cluster_data_xoroshiro.csv', error_bad_lines=False, engine="python") #reads and parses the data
+data = pd.read_csv('../cluster_data/cluster_data_combined_1.csv', error_bad_lines=False, engine="python") #reads and parses the data
 
 print(type(data))
 
@@ -227,7 +227,7 @@ print("Best Representative Feature: \n")
 for x in range(0, len(best_overall_rep_feature_set)):
     print(best_overall_rep_feature_set[x].name)
 
-print("Best Coefficient: " + str(best_rep_coeff))
+print("Best Dispersion Score: " + str(best_rep_coeff))
 
 
 
