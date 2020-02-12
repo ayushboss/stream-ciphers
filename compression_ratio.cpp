@@ -5,18 +5,17 @@ using namespace std;
 int inputValues[128700];
 
 ifstream inFile;
-File *fp1;
+FILE *fp1;
+
 
 int main() {
 
-	inFile.open("bit_transfer_test.txt");
+	inFile.open("bit_transfer.txt");
 
-	fp1 = fopen("bit_list.bin", "w")
-
-	// freopen("bit_transfer_test.txt", "r", stdin);
+	fp1 = fopen("bit_list.bin", "w");
 
 	if (!inFile) {
-		cerr << "Unable to open bit transfer file.";
+		printf("Unable to open bit transfer file.");
 		exit(1);
 	}
 
@@ -29,11 +28,15 @@ int main() {
 	}
 
 	inFile.close();
-
 	for (int i = 0; i < idx+1; i++) {
-		putc(inputValues[i], fp1)
+		putc(inputValues[i], fp1);
 	}
 
-	fclose(fp1)
+	fclose(fp1);
+
+	ifstream file("bit_list.bin", ios::binary | ios::ate);
+	int uncompressedSize = file.tellg();
+
+	//need to compress bit_list.bin and find size of that to get ratio
 	
 }

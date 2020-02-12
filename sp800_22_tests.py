@@ -95,7 +95,6 @@ def transfer_bits(bits):
     s = open("bit_transfer.txt", "w+")
     for ints in bitsList:
         s.write(str(ints) + '\n')
-    s.write(-1);
 
     return bitsList
 
