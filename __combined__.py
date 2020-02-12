@@ -26,7 +26,7 @@ for s in range(instance_amnt):
 	#Running NIST suite tests on the generated data
 	#IMPORTANT: the data in the csv is not organized in blocks: Instead, 
 	#if x=entryNum%4, then x = 1 is Philox, x = 2 is Xorishiro,
-	#x = 3 is ThreeFry, and x=4 is Mersenne Twister
+	#x = 3 is ThreeFry, and x=4 is Mersenne Twister 
     print("--------  Philox " + str(s) +" --------")
 	sp800_22_tests.test_func(bitsP, "cluster_data_combined_2.csv")
 	print("--------  Xoroshiro " + str(s) +" --------")

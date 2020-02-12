@@ -47,16 +47,57 @@ import pandas as pd
 
 #     return uncompressed.getbuffer().nbytes/float(compressed.getbuffer().nbytes)
 
+# def get_compressed_ratio(bits):
+#     s = open("bits.txt", "w+")
+#     for ints in bits:
+#         s.write(str(ints) + ", ")
+#     precompress_size = os.path.getsize("bits.txt")
+#     bits_zip = zipfile.ZipFile("bits-compressed.zip", "w")
+#     bits_zip.write('bits.txt', compress_type=zipfile.ZIP_DEFLATED)
+#     bits_zip.close()
+#     postcompress_size = os.path.getsize("bits-compressed.zip")
+#     return precompress_size/postcompress_size
+
 def get_compressed_ratio(bits):
-    s = open("bits.txt", "w+")
-    for ints in bits:
-        s.write(str(ints) + ", ")
-    precompress_size = os.path.getsize("bits.txt")
-    bits_zip = zipfile.ZipFile("bits-compressed.zip", "w")
-    bits_zip.write('bits.txt', compress_type=zipfile.ZIP_DEFLATED)
+    s = open("bits.bin", "wb")
+    bitsList = []
+    print(len(bits)/8)
+    for intIndex in range(int(float(len(bits)/8))):
+        #0...7
+        out = bits[8*intIndex]*(128)+bits[8*intIndex+1]*(64)+bits[8*intIndex+2]*(32)+bits[8*intIndex+3]*(16) + bits[8*intIndex+4]*(8)+bits[8*intIndex+5]*(4) + bits[8*intIndex+6]*2 + bits[8*intIndex+7]
+        #print("Compression Ratio: " + str(out))
+        bitsList.append(out)
+    byteArrayBitsList = bytearray(bitsList)
+        
+    s.write(byteArrayBitsList)
+    precompress_size = os.path.getsize("bits.bin")
+    bits_zip = zipfile.ZipFile("bitscompressed.zip", "w")
+    bits_zip.write('bits.bin', compress_type=zipfile.ZIP_DEFLATED)
     bits_zip.close()
-    postcompress_size = os.path.getsize("bits-compressed.zip")
+    postcompress_size = os.path.getsize("bitscompressed.zip")
+
+    d = open("bitsRaw.txt", "w+")
+    for ints in bits:
+        d.write(str(ints) + ", ")
     return precompress_size/postcompress_size
+
+def transfer_bits(bits):
+    bitsList = []
+    for intIndex in range(int(float(len(bits)/8))):
+        #0...7
+
+        compressString=str(bits[8*intIndex]) + str(bits[8*intIndex+1]) + str(bits[8*intIndex+2]) + str(bits[8*intIndex+3]) + str(bits[8*intIndex+4]) + str(bits[8*intIndex+5]) + str(bits[8*intIndex+6]) + str(bits[8*intIndex+7])
+        out = bits[8*intIndex]*(128)+bits[8*intIndex+1]*(64)+bits[8*intIndex+2]*(32)+bits[8*intIndex+3]*(16) + bits[8*intIndex+4]*(8)+bits[8*intIndex+5]*(4) + bits[8*intIndex+6]*2 + bits[8*intIndex+7]
+        print(str(bits[8*intIndex]) + " " + str(bits[8*intIndex+1]) + " " + str(bits[8*intIndex+2]) + " " + str(bits[8*intIndex+3]) + " " + str(bits[8*intIndex+4]) + " " + str(bits[8*intIndex+5]) + " " + str(bits[8*intIndex+6]) + " " + str(bits[8*intIndex+7]) + " " + str(out))
+        #print("Compression Ratio: " + str(out))
+        bitsList.append(out)
+    
+    s = open("bit_transfer.txt", "w+")
+    for ints in bitsList:
+        s.write(str(ints) + '\n')
+    s.write(-1);
+
+    return bitsList
 
 def read_bits_from_file(filename,bigendian):
     bitlist = list()
@@ -247,6 +288,9 @@ def test_func(bits, csv_name):
             writer.writerow(row)
         end = time.time()
         print("Duration: " + str(end-start_time))
+
+        testHexTrans = transfer_bits(s)
+
 
 """
     look at the different things for entropy
