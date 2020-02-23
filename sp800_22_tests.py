@@ -31,6 +31,7 @@ sys.path.append('python')
 import argparse
 import sys
 import random
+import math
 
 import zipfile
 import os
@@ -57,6 +58,11 @@ import pandas as pd
 #     bits_zip.close()
 #     postcompress_size = os.path.getsize("bits-compressed.zip")
 #     return precompress_size/postcompress_size
+
+def get_binary_entropy_bits(bits):
+    p0 = ( (float(bits.count(0)))/len(bits) )
+    p1 = ( (float(bits.count(1)))/len(bits) )
+    entropy = -1.0 * (p0*math.log(p0) + p1*math.log(p1))
 
 def get_compressed_ratio(bits):
     s = open("bits.bin", "wb")
@@ -193,11 +199,11 @@ name_row = ["Entropy", "Compression Ratio", "Monobit", "Frequency Within Block",
 
 df = pd.read_csv("cluster_data/cluster_datapy.csv")
 
-
 def append_header(file):
     with open("cluster_data/"+str(file), "a") as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(name_row)
+
 
 def test_func(bits, csv_name):
     start_time = time.time()
@@ -274,6 +280,7 @@ def test_func(bits, csv_name):
         
         # Calculate the entropy value of the data
         f.write("Entropy Value\t\t" + str(entropy(bits)) + "\n")
+        get_binary_entropy_bits(bits)
 
         # Calculate the compression ratio of the data
         s = np.asarray(bits);
