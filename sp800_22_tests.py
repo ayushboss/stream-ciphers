@@ -26,6 +26,8 @@ import io
 import numpy as np
 import csv
 import sys
+import get_byte_entropy_bits as ByteEntropyBits
+
 sys.path.append('python')
 
 import argparse
@@ -64,6 +66,7 @@ def get_binary_entropy_bits(bits):
     p0 = ( (float(bits.count(0)))/len(bits) )
     p1 = ( (float(bits.count(1)))/len(bits) )
     entropy = -1.0 * (p0*math.log(p0) + p1*math.log(p1))
+    return entropy
 
 def get_compressed_ratio(bits):
     s = open("bits.bin", "wb")
@@ -193,7 +196,7 @@ f = open("feature_test_summary.txt", "w+")
 
 x = 1
 
-name_row = ["Entropy", "Compression Ratio", "Monobit", "Frequency Within Block", "Runs",
+name_row = ["Binary Entropy", "Byte Entropy", "Monobit", "Frequency Within Block", "Runs",
             "Longest Runs in Ones", "Binary Matrix Rank", "DFT", 
             "Non-Overlapping Template", "Overlapping Template", "Maurer's Universal", 
             "Linear Complexity"]
@@ -286,7 +289,17 @@ def test_func(bits, csv_name):
         # Calculate the compression ratio of the data
         s = np.asarray(bits);
         f.write(("Compression Value\t\t" + str(get_compressed_ratio(s)) + "\n"))    
-        row = [str(get_binary_entropy_bits(bits))]
+
+        testHexTrans = transfer_bits(s)
+        #run the cpp file which generates "bit_list" file for value calculation
+        sCreateCompFiles = subprocess.check_call("g++ compression_ratio.cpp -o out1;./out1", shell = True)
+
+        iterationValue = -1
+
+        with open("counter.txt", "r") as counterFile:
+            iterationValue = counterFile.read()
+
+        row = [str(get_binary_entropy_bits(bits)), str(ByteEntropyBits.get_byte_entropy_bits_func(iterationValue))]
         for idx in additional_data:
             print('yeet:' + str(idx))
             row.append(additional_data[idx])
@@ -296,9 +309,6 @@ def test_func(bits, csv_name):
             writer.writerow(row)
         end = time.time()
         print("Duration: " + str(end-start_time))
-
-        testHexTrans = transfer_bits(s)
-        sCreateCompFiles = subprocess.check_call("gcc compression_ratio.cpp -o out1;./out1", shell = True)
 
 
 
