@@ -286,10 +286,11 @@ def test_func(bits, csv_name):
         # Calculate the compression ratio of the data
         s = np.asarray(bits);
         f.write(("Compression Value\t\t" + str(get_compressed_ratio(s)) + "\n"))    
-        row = [str(entropy(bits)), str(get_compressed_ratio(s))]
+        row = [str(get_binary_entropy_bits(bits))]
         for idx in additional_data:
             print('yeet:' + str(idx))
             row.append(additional_data[idx])
+        #need to manipulate "csv_name" so that we can get information from different files
         with open("cluster_data/" + str(csv_name), "a") as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(row)
