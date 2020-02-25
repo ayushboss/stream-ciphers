@@ -8,7 +8,6 @@ using namespace std;
 int inputValues[128700];
 
 ifstream inFile;
-FILE *fp1;
 ifstream fpCounter;
 FILE *fileClear;
 
@@ -40,7 +39,9 @@ int main() {
 	fpCounter >> countingValue;
 
 	char dest1[255];
-	strcpy( dest1, "bin_files/bit_list_" );
+	strcpy( dest1, "./bin_files/bit_list_" );
+
+	printf("%i\n", countingValue);
 
 	char const *put1 = to_string(countingValue+1).c_str();
 	char put2[5] = ".bin";
@@ -48,21 +49,14 @@ int main() {
 	strcat(dest1, put1);
 	strcat(dest1, put2);
 
-	char dest1_copy[255];
-	strcpy( dest1_copy, dest1);
-
-	char file_folder_base[600];
-	strcpy( file_folder_base, "bin_files/" );
-
-	strcat(file_folder_base, dest1_copy);
-
-	fp1 = fopen(file_folder_base, "w");
+	printf("Output File: %s\n", dest1);
+	FILE *fp1 = fopen(dest1, "w");
 	
 	fileClear = fopen("counter.txt", "w");
-	putc(countingValue+1, fileClear);
+	fprintf(fileClear, "%s", put1);
 
 	if (!inFile) {
-		printf("Unable to open bit transfer file.");
+		printf("Unable to open bit transfer file.\n");
 		exit(1);
 	}
 
@@ -74,11 +68,9 @@ int main() {
 		idx++;
 	}
 
-	//printf("%i", idx);
-
 	inFile.close();
 	for (int i = 0; i < idx; i++) {
-		putc( (char) inputValues[i], fp1);
+		putc(inputValues[i], fp1);
 	}
 
 	fclose(fp1);

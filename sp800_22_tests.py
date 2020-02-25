@@ -39,6 +39,7 @@ import os
 import time
 
 import pandas as pd
+import subprocess
 
 # def get_compressed_ratio(a):
 #     uncompressed = io.BytesIO()
@@ -279,7 +280,7 @@ def test_func(bits, csv_name):
 
         
         # Calculate the entropy value of the data
-        f.write("Entropy Value\t\t" + str(entropy(bits)) + "\n")
+        f.write("Entropy Value\t\t" + str(get_binary_entropy_bits(bits)) + "\n")
         get_binary_entropy_bits(bits)
 
         # Calculate the compression ratio of the data
@@ -296,6 +297,8 @@ def test_func(bits, csv_name):
         print("Duration: " + str(end-start_time))
 
         testHexTrans = transfer_bits(s)
+        sCreateCompFiles = subprocess.check_call("gcc compression_ratio.cpp -o out1;./out1", shell = True)
+
 
 
 """
