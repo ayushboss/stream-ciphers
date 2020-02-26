@@ -27,6 +27,7 @@ import numpy as np
 import csv
 import sys
 import get_byte_entropy_bits as ByteEntropyBits
+import compress_bin_files as CompressBinFiles
 
 sys.path.append('python')
 

@@ -1,3 +1,5 @@
 Binary Entropy,Monobit,Frequency Within Block,Runs,Longest Runs in Ones,Binary Matrix Rank,DFT,Non-Overlapping Template,Overlapping Template,Maurer's Universal,Linear Complexity
 None,0.02350644675293336,0.556263041580664,52.035167901472185,1.310063783902261,5.108235076014151,1.1395758909576639,1.1194341570991124,0.001253106215028659,1.9182394195078651,0.00021449737307790425,1.5006195343092665
 None,0.02350644675293336,0.30531730853675537,58.69772924083521,0.2786986826293367,2.9669653511149763,0.17131690398723787,0.0703644327319442,0.0005524589093168852,3.3590766781153834,0.00037761069916832915,1.35384988533647
+Binary Entropy,Byte Entropy,Monobit,Frequency Within Block,Runs,Longest Runs in Ones,Binary Matrix Rank,DFT,Non-Overlapping Template,Overlapping Template,Maurer's Universal,Linear Complexity
+Binary Entropy,Byte Entropy,Monobit,Frequency Within Block,Runs,Longest Runs in Ones,Binary Matrix Rank,DFT,Non-Overlapping Template,Overlapping Template,Maurer's Universal,Linear Complexity

@@ -1,4 +1,5 @@
 import sp800_22_tests
+import compress_bin_files
 import random
 
 instance_amnt = int(input("# of instances: "))
@@ -14,3 +15,4 @@ for s in range(instance_amnt):
 
 
 	sp800_22_tests.test_func(bits, "sp800_collected_cluster_data_MT.csv")
+compress_bin_files.compress("compression_ratio_cluster_data_MT.csv")
