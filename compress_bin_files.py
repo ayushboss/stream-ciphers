@@ -8,7 +8,7 @@ def compress(csvname):
     for file in os.listdir(directory):
         filename = os.fsdecode(file)
         if filename.endswith(".bin"): 
-            print("test: " + filename[:-4] + ".7z & " + filename)
+            # print("test: " + filename[:-4] + ".7z & " + filename)
             sCompressFiles = subprocess.check_call("cd bin_files; 7z a " + filename[:-4] + ".7z " + filename + "; cd ..", shell = True)
         continue
 
