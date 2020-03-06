@@ -99,7 +99,7 @@ def transfer_bits(bits):
 
         compressString=str(bits[8*intIndex]) + str(bits[8*intIndex+1]) + str(bits[8*intIndex+2]) + str(bits[8*intIndex+3]) + str(bits[8*intIndex+4]) + str(bits[8*intIndex+5]) + str(bits[8*intIndex+6]) + str(bits[8*intIndex+7])
         out = bits[8*intIndex]*(128)+bits[8*intIndex+1]*(64)+bits[8*intIndex+2]*(32)+bits[8*intIndex+3]*(16) + bits[8*intIndex+4]*(8)+bits[8*intIndex+5]*(4) + bits[8*intIndex+6]*2 + bits[8*intIndex+7]
-        print(str(bits[8*intIndex]) + " " + str(bits[8*intIndex+1]) + " " + str(bits[8*intIndex+2]) + " " + str(bits[8*intIndex+3]) + " " + str(bits[8*intIndex+4]) + " " + str(bits[8*intIndex+5]) + " " + str(bits[8*intIndex+6]) + " " + str(bits[8*intIndex+7]) + " " + str(out))
+        # print(str(bits[8*intIndex]) + " " + str(bits[8*intIndex+1]) + " " + str(bits[8*intIndex+2]) + " " + str(bits[8*intIndex+3]) + " " + str(bits[8*intIndex+4]) + " " + str(bits[8*intIndex+5]) + " " + str(bits[8*intIndex+6]) + " " + str(bits[8*intIndex+7]) + " " + str(out))
         #print("Compression Ratio: " + str(out))
         bitsList.append(out)
     
