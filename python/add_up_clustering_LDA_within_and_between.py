@@ -25,20 +25,20 @@ def k_mean_distance(data, cx, cy, i_centroid, cluster_labels):
         distances = [np.sqrt((x-cx)**2+(y-cy)**2) for (x, y) in data[cluster_labels == i_centroid]]
         return distances
 
-data = pd.read_csv('../cluster_data/cluster_data_combined_1.csv', error_bad_lines=False, engine="python") #reads and parses the data
+data = pd.read_csv('../cluster_data/PCG64/PCG64_all_cluster_data.csv', error_bad_lines=False, engine="python") #reads and parses the data
 
 print(type(data))
 
 n_clusters = 5
 
-labels = ["Entropy", "Compression Ratio", "Monobit", "Frequency Within Block", "Runs",
+labels = ["Binary Entropy", "Byte Entropy", "Monobit", "Frequency Within Block", "Runs",
             "Longest Runs in Ones", "Binary Matrix Rank", "DFT", 
             "Non-Overlapping Template", "Overlapping Template", "Maurer's Universal", 
-            "Linear Complexity"]
-correlating_labels=["Entropy", "Compression Ratio", "Monobit", "Frequency Within Block", "Runs",
+            "Linear Complexity","Compression Ratio"]
+correlating_labels=["Binary Entropy", "Byte Entropy", "Monobit", "Frequency Within Block", "Runs",
             "Longest Runs in Ones", "Binary Matrix Rank", "DFT", 
             "Non-Overlapping Template", "Overlapping Template", "Maurer's Universal", 
-            "Linear Complexity"]
+            "Linear Complexity", "Compression Ratio"]
 df = pd.DataFrame(data)
 
 columns = list(df)
