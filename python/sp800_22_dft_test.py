@@ -55,5 +55,5 @@ def dft_test(bits):
     p = math.erfc(abs(d)/math.sqrt(2))
 
     success = (p >= 0.01)
-    return (success,p,None,abs(d)/math.sqrt(2))
+    return (success,p,None,abs(d), 1029) #need to find manually
 

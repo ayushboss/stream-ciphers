@@ -9,4 +9,4 @@ def ks_test(bits):
 	s = stats.kstest(bits, n.cdf)
 	print("S YEETTTT: " + str(s[0]) + ", " + str(s[1]))
 	p=s[1]
-	return (p >= 0.1, p, None, -1)
+	return (p >= 0.1, p, None, -1, -1)

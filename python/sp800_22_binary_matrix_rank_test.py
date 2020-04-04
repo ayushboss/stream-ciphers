@@ -87,4 +87,4 @@ def binary_matrix_rank_test(bits,M=32,Q=32):
     print("  Remainder Count = ",remainder) 
     print("  Chi-Square = ",chisq)
 
-    return (success, p, None, chisq/2.0)
+    return (success, p, None, chisq, 6.5*N)

@@ -25,7 +25,7 @@ def k_mean_distance(data, cx, cy, i_centroid, cluster_labels):
         distances = [np.sqrt((x-cx)**2+(y-cy)**2) for (x, y) in data[cluster_labels == i_centroid]]
         return distances
 
-data = pd.read_csv('../cluster_data/PCG64/PCG64_all_cluster_data.csv', error_bad_lines=False, engine="python") #reads and parses the data
+data = pd.read_csv('../cluster_data/Philox/Philox_all_cluster_data.csv', error_bad_lines=False, engine="python") #reads and parses the data
 
 print(type(data))
 

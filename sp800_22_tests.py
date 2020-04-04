@@ -28,6 +28,7 @@ import csv
 import sys
 import get_byte_entropy_bits as ByteEntropyBits
 import compress_bin_files as CompressBinFiles
+import zipfile
 
 sys.path.append('python')
 
@@ -108,6 +109,14 @@ def transfer_bits(bits):
         s.write(str(ints) + '\n')
 
     return bitsList
+
+def print_to_text_file(bits, iteration, prng_name):
+    d = open("raw_text/" + str(prng_name) + "_iteration_" + str(iteration) + ".txt", "w+")
+    for ints in bits:
+        d.write(str(ints) + ",")
+    zipfile.ZipFile("raw_text/" + str(prng_name)+'_iteration_' + str(iteration) + '.zip', mode='w').write("raw_text/" + str(prng_name) + "_iteration_" + str(iteration) + ".txt")
+    os.remove("raw_text/" + str(prng_name) + "_iteration_" + str(iteration) + ".txt")
+
 
 def read_bits_from_file(filename,bigendian):
     bitlist = list()
@@ -200,7 +209,7 @@ x = 1
 name_row = ["Binary Entropy", "Byte Entropy", "Monobit", "Frequency Within Block", "Runs",
             "Longest Runs in Ones", "Binary Matrix Rank", "DFT", 
             "Non-Overlapping Template", "Overlapping Template", "Maurer's Universal", 
-            "Linear Complexity"]
+            "Linear Complexity", "Compression Ratio"]
 
 df = pd.read_csv("cluster_data/cluster_datapy.csv")
 
@@ -210,12 +219,15 @@ def append_header(file):
             writer.writerow(name_row)
 
 
-def test_func(bits, csv_name):
+def test_func(bits, csv_name, prng_name, iteration):
     start_time = time.time()
+
+    print_to_text_file(bits, iteration, prng_name)
 
     get_compressed_ratio(bits)
 
     additional_data = {}
+    max_list = {}
 
     gotresult=False
     if args.testname:
@@ -223,7 +235,7 @@ def test_func(bits, csv_name):
             m = __import__ ("sp800_22_"+args.testname)
             func = getattr(m,args.testname)
             print("TEST: %s" % args.testname)
-            (success,p,plist,score) = func(bits)
+            (success,p,plist,score, testmax) = func(bits)
             gotresult = True
 
             print("-------------- SCORE -------------------\t" + str(score))
@@ -241,6 +253,8 @@ def test_func(bits, csv_name):
             if score != -1 and testname != 'approximate_entropy_test':
                 print(testname)
                 additional_data[testname] = score
+            if testmax != -1:
+                max_list[testname] = testmax
         else:
             print("Test name (%s) not known" % args.ttestname)
             exit()
@@ -252,7 +266,7 @@ def test_func(bits, csv_name):
             m = __import__ ("sp800_22_"+testname)
             func = getattr(m,testname)
             
-            (success,p,plist, score) = func(bits)
+            (success,p,plist, score, testmax) = func(bits)
 
             summary_name = testname
             if success:
@@ -274,11 +288,15 @@ def test_func(bits, csv_name):
             if score != -1 and testname != 'approximate_entropy_test':
                 additional_data[testname] = score
 
-            results.append((summary_name,summary_p, summary_result))
+            if testmax != -1:
+                max_list[testname] = testmax
+
+            results.append((summary_name,summary_p, summary_result, summary_p, testmax))
             
         print()
         for result in results:
-            (summary_name,summary_p, summary_result) = result
+            print("REEEEZULT: " + str(result))
+            (summary_name,summary_p, summary_result, summary_score, summary_max) = result
             f.write(str(summary_name) + '\t\t' + str(summary_p) + '\t\t' + str(summary_result) + '\n')
             print(summary_name.ljust(40),summary_p.ljust(18),summary_result)
 
@@ -293,7 +311,7 @@ def test_func(bits, csv_name):
 
         testHexTrans = transfer_bits(s)
         #run the cpp file which generates "bit_list" file for value calculation
-        sCreateCompFiles = subprocess.check_call("g++ compression_ratio.cpp -o out1;./out1", shell = True)
+        #sCreateCompFiles = subprocess.check_call("g++ compression_ratio.cpp -o out1;./out1", shell = True)
 
         iterationValue = -1
 
@@ -304,10 +322,23 @@ def test_func(bits, csv_name):
         for idx in additional_data:
             print('yeet:' + str(idx))
             row.append(additional_data[idx])
+
+        max_row = [1.0, 0.1]
+        for idx in max_list:
+            print(str(idx) + " " + str(max_list[idx]))
+            max_row.append(max_list[idx])
+
         #need to manipulate "csv_name" so that we can get information from different files
         with open("cluster_data/" + str(csv_name), "a") as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(row)
+
+        with open("cluster_data/max.csv", "a") as csvfile:
+            writer = csv.writer(csvfile)
+            writer.writerow(max_row)
+
+        
+
         end = time.time()
         print("Duration: " + str(end-start_time))
 

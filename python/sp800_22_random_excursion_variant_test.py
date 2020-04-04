@@ -74,5 +74,5 @@ def random_excursion_variant_test(bits):
         print("PASS")
     else:    
         print("FAIL: Data not random")
-    return (success,None,plist, -1)
+    return (success,None,plist, -1, -1)
 

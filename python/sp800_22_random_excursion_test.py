@@ -120,7 +120,7 @@ def random_excursion_test(bits):
         print("PASS")
     else:    
         print("FAIL: Data not random")
-    return (success, None, plist, -1)
+    return (success, None, plist, -1, -1)
 
 if __name__ == "__main__":
     bits = [0,1,1,0,1,1,0,1,0,1]

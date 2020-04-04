@@ -115,4 +115,4 @@ def overlapping_template_matching_test(bits,blen=6):
     print("  chisq = ",chisq)
     
     success = ( p >= 0.01)
-    return (success,p,None, chisq/2.0)
+    return (success,p,None, chisq, 13.5*N)
