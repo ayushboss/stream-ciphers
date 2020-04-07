@@ -311,7 +311,7 @@ def test_func(bits, csv_name, prng_name, iteration):
 
         testHexTrans = transfer_bits(s)
         #run the cpp file which generates "bit_list" file for value calculation
-        #sCreateCompFiles = subprocess.check_call("g++ compression_ratio.cpp -o out1;./out1", shell = True)
+        sCreateCompFiles = subprocess.check_call("g++ compression_ratio.cpp -o out1;./out1", shell = True)
 
         iterationValue = -1
 

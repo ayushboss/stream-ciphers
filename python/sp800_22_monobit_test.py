@@ -45,6 +45,9 @@ def monobit_test(bits):
     p = math.erfc(float(s)/(math.sqrt(float(n)) * math.sqrt(2.0)))
     
     success = (p >= 0.01)
-    return (success,p,None, float(s)/(math.sqrt(float(n)) * math.sqrt(2.0)), math.sqrt(n))
+
+    print("I AM PRINTING AN UPDATED RETURN VALUE: " + str(float(s)) )
+
+    return (success,p,None, float(s), math.sqrt(n))
     
 
