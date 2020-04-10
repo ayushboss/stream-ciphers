@@ -111,11 +111,11 @@ def transfer_bits(bits):
     return bitsList
 
 def print_to_text_file(bits, iteration, prng_name):
-    d = open("raw_text/" + str(prng_name) + "_iteration_" + str(iteration) + ".txt", "w+")
+    d = open("raw_text/" + str(prng_name) + "/" + str(prng_name) + "_iteration_" + str(iteration) + ".txt", "w+")
     for ints in bits:
         d.write(str(ints) + ",")
-    zipfile.ZipFile("raw_text/" + str(prng_name)+'_iteration_' + str(iteration) + '.zip', mode='w').write("raw_text/" + str(prng_name) + "_iteration_" + str(iteration) + ".txt")
-    os.remove("raw_text/" + str(prng_name) + "_iteration_" + str(iteration) + ".txt")
+    zipfile.ZipFile("raw_text/" + str(prng_name) + "/" + str(prng_name)+'_iteration_' + str(iteration) + '.zip', mode='w').write("raw_text/" + str(prng_name) + "/" + str(prng_name) + "_iteration_" + str(iteration) + ".txt")
+    os.remove("raw_text/" + str(prng_name) + "/" + str(prng_name) + "_iteration_" + str(iteration) + ".txt")
 
 
 def read_bits_from_file(filename,bigendian):
@@ -210,8 +210,6 @@ name_row = ["Binary Entropy", "Byte Entropy", "Monobit", "Frequency Within Block
             "Longest Runs in Ones", "Binary Matrix Rank", "DFT", 
             "Non-Overlapping Template", "Overlapping Template", "Maurer's Universal", 
             "Linear Complexity", "Compression Ratio"]
-
-df = pd.read_csv("cluster_data/cluster_datapy.csv")
 
 def append_header(file):
     with open("cluster_data/"+str(file), "a") as csvfile:

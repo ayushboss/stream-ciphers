@@ -1,13 +1,13 @@
 import sp800_22_tests
 import compress_bin_files
-from randomgen import RandomGenerator, PCG64
+from randomgen import Generator, PCG64
 
 instance_amnt = int(input("# of instances: "))
 bits_per_instance = int(input("# of bits per instance: "))
 
 sp800_22_tests.append_header("sp800_collected_cluster_data_PCG64.csv")
 
-rnd = RandomGenerator(PCG64())
+rnd = Generator(PCG64())
 
 for s in range(instance_amnt):
 	print("----------------------  Iteration " + str(s) + "  ----------------------")
@@ -16,4 +16,4 @@ for s in range(instance_amnt):
 
 #obtain compression ratio for each
 
-compress_bin_files.compress("compression_ratio_cluster_data_PCG64.csv")
+# compress_bin_files.compress("compression_ratio_cluster_data_PCG64.csv")
