@@ -1,63 +1,72 @@
 import numpy as np
 import pandas as pd
+import os
+import sys
 
-#still need to standardize the optimal values that aren't 0
-optimal_point = [1, 1, 0, 0, 1029000/2, 0, 0, 0, 0, 0, 6, 0, 0]
+def analyzeDistToOptimalPoint(prng_name):
+	pathToCSV = "../cluster_data/sp800_collected_cluster_data_" + str(prng_name) + ".csv"
+	# if not os.path.exists(pathToCSV)
+	# 	print('Error: PRNG type does not exist.')
+	# 	return
+	#still need to standardize the optimal values that aren't 0
+	optimal_point = [0, 0, 1029000/2, 0, 0, 0, 0, 0, 7]
+	#Standardized version of the optimal point in order to ensure 
+	#that all features are equally weighted
+	optimal_point_binary = [0,0,0.5,0,0,0,0,0,1]
 
-max_list = []
-
-max_data =pd.read_csv('../cluster_data/max.csv', error_bad_lines=False, engine="python")
-max_df = pd.DataFrame(max_data)
-
-maxMatrix = max_df.values.tolist()
-
-for row in maxMatrix:
-	for cell in row:
-		print(cell)
-		max_list.append(cell)
-
-print("Max List: " + str(max_list))
+	max_list = [1014.3963722332606,1028907,1029000,1050.0,6526.0,24117.125,13068.0,190855.0, 7]
 
 
-data = pd.read_csv('../cluster_data/Philox/Philox_all_cluster_data.csv', error_bad_lines=False, engine="python") #reads and parses the data
-df = pd.DataFrame(data)
+	data = pd.read_csv('../cluster_data/sp800_collected_cluster_data_' + str(prng_name) + '.csv', error_bad_lines=False, engine="python") #reads and parses the data
+	df = pd.DataFrame(data)
 
 
-#Matrix of all rows in our file
-dfMatrix = df.values.tolist()
+	#Matrix of all rows in our file
+	dfMatrix = df.values.tolist()
 
-print (type(dfMatrix))
+	print("Length of MaxList: " + str(len(max_list)) + ", Length of Data: " + str(len(dfMatrix[0])))
 
-#standardizing measurements
-rowIdx = 0
-for dfRow,maxRow in zip(dfMatrix, maxMatrix):
-	colIdx = 0
-	for cellDf, cellMax in zip(dfRow, maxRow):
-		maxPossibleTest = cellMax
-		standardizedValue = (cellDf)/(maxPossibleTest) #the minimum value for all of the tests is 0 so we don't need to include it in the calculation
-		print(str(cellDf) + " standardized to " + str(standardizedValue))
-		dfMatrix[rowIdx][colIdx] = standardizedValue
-		colIdx+=1
-	rowIdx+=1
+	standardizedData = []
+	for dfRow in dfMatrix:
+		newRow = []
+		for cellDf, cellMax in zip(dfRow, max_list):
+			maxPossibleTest = cellMax
+			#print("Cell DF: " + str(cellDf) + ", max: " + str(maxPossibleTest) + ", quotient: " + str(cellDf/maxPossibleTest))
+			standardizedValue = (cellDf)/(maxPossibleTest) #the minimum value for all of the tests is 0 so we don't need to include it in the calculation
+			newRow.append(standardizedValue)
+			
+		standardizedData.append(newRow)
 
+	avgDistance = 0 #represents average distance to our point of optimal "randomness"
 
-avgDistance = 0 #represents average distance to our point of optimal "randomness"
-numRows = 0
+	iteration = 0
+	for row in standardizedData:
+		iteration+=1
+		tempDistance = 0
+		idx = 0
+		print("-")
+		for cell in row:
+			#print("-Cell: " + str(cell) + ", " + str(optimal_point_binary[idx]))
+			tempDistance += (cell - optimal_point_binary[idx])*(cell - optimal_point_binary[idx])
+			print ("current data: " + str((cell - optimal_point_binary[idx])*(cell - optimal_point_binary[idx])) + ", row data: " + str(np.sqrt(tempDistance)))
+			idx+=1
+		#print("row distance: " + str(tempDistance))
+		avgDistance += np.sqrt(tempDistance)
+		print(str(iteration) + ": " + str(np.sqrt(tempDistance)) + ", " + str(avgDistance))
+		# print(avgDistance)
+	avgDistance /= len(standardizedData)
 
-for row in dfMatrix:
-	numRows += 1
-	tempDistance = 0
-	idx = 0
-	for cell in row:
-		print("cell: " + str(cell) + " " + str(optimal_point[idx]))
-		tempDistance += (cell - optimal_point[idx])*(cell - optimal_point[idx])
-		idx+=1
-	avgDistance += np.sqrt(tempDistance)
+	print("Quality of " + str(prng_name) + ": " + str(avgDistance))
 
-avgDistance /= numRows
+def main():
+	if len(sys.argv) > 2:
+		print("Error: too many arguments.")
+		return
+	elif len(sys.argv) < 2:
+		print("Error: Usage: python3 dist_to_optimal_point.py prng_name")
+		return
+	print("made it")
+	analyzeDistToOptimalPoint(sys.argv[1])
 
-print("Quality of Philox: " + str(avgDistance))
-
-
-
-
+if __name__ == '__main__':
+	main()

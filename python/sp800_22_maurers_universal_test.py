@@ -95,7 +95,7 @@ def maurers_universal_test(bits,patternlen=None, initblocks=None):
     P = math.erfc(mag)
 
     success = (P >= 0.01)
-    return (success, P, None, mag, L)
+    return (success, P, None, fn, L)
     
 
 if __name__ == "__main__":

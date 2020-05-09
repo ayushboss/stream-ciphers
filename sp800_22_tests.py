@@ -30,7 +30,8 @@ import get_byte_entropy_bits as ByteEntropyBits
 import compress_bin_files as CompressBinFiles
 import zipfile
 
-sys.path.append('python')
+sys.path.append('/python')
+sys.path.append('/cluster_data')
 
 import argparse
 import sys
@@ -176,8 +177,6 @@ filename = args.filename
 # X 3.15 Random Excursions Variant Test 
 
 testlist = [
-        'chi_squared_test',
-        'ks_test',
         'monobit_test',
         'frequency_within_block_test',
         'runs_test',
@@ -217,10 +216,10 @@ def append_header(file):
             writer.writerow(name_row)
 
 
-def test_func(bits, csv_name, prng_name, iteration):
+def test_func(bits, csv_name, prng_name, iteration, isFix):
     start_time = time.time()
-
-    print_to_text_file(bits, iteration, prng_name)
+    if not isFix:
+        print_to_text_file(bits, iteration, prng_name)
 
     get_compressed_ratio(bits)
 
@@ -253,6 +252,9 @@ def test_func(bits, csv_name, prng_name, iteration):
                 additional_data[testname] = score
             if testmax != -1:
                 max_list[testname] = testmax
+
+            print ("Test Name: " + str(testname) + ", Score: " + str(score))
+
         else:
             print("Test name (%s) not known" % args.ttestname)
             exit()
@@ -282,6 +284,8 @@ def test_func(bits, csv_name, prng_name, iteration):
                 for pval in plist:
                     print("P="+str(pval))
                     summary_p = str(min(plist))
+
+            print ("Test Name: " + str(testname) + ", Score: " + str(score))
             
             if score != -1 and testname != 'approximate_entropy_test':
                 additional_data[testname] = score
@@ -309,12 +313,9 @@ def test_func(bits, csv_name, prng_name, iteration):
 
         testHexTrans = transfer_bits(s)
         #run the cpp file which generates "bit_list" file for value calculation
-        sCreateCompFiles = subprocess.check_call("g++ compression_ratio.cpp -o out1;./out1", shell = True)
+        #sCreateCompFiles = subprocess.check_call("g++ compression_ratio.cpp -o out1;./out1", shell = True)
 
         iterationValue = -1
-
-        with open("counter.txt", "r") as counterFile:
-            iterationValue = counterFile.read()
 
         row = [str(get_binary_entropy_bits(bits)), str(ByteEntropyBits.get_byte_entropy_bits_func(iterationValue))]
         for idx in additional_data:
@@ -326,16 +327,9 @@ def test_func(bits, csv_name, prng_name, iteration):
             print(str(idx) + " " + str(max_list[idx]))
             max_row.append(max_list[idx])
 
-        #need to manipulate "csv_name" so that we can get information from different files
-        with open("cluster_data/" + str(csv_name), "a") as csvfile:
+        with open(str(csv_name), "a") as csvfile:
             writer = csv.writer(csvfile)
             writer.writerow(row)
-
-        with open("cluster_data/max.csv", "a") as csvfile:
-            writer = csv.writer(csvfile)
-            writer.writerow(max_row)
-
-        
 
         end = time.time()
         print("Duration: " + str(end-start_time))

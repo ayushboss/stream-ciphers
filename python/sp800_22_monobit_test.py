@@ -48,6 +48,6 @@ def monobit_test(bits):
 
     print("I AM PRINTING AN UPDATED RETURN VALUE: " + str(float(s)) )
 
-    return (success,p,None, float(s), math.sqrt(n))
+    return (success,p,None, float(s)/math.sqrt(float(n)), math.sqrt(n))
     
 
