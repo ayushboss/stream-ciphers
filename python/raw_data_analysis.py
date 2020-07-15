@@ -1,9 +1,11 @@
 import numpy as np
 import pandas as pd
+import seaborn as sns
 import os
 import sys
+import matplotlib.pyplot as plt
 
-def analyzeDistToOptimalPoint(prng_name):
+def analyzeRawData(prng_name):
 	pathToCSV = "../cluster_data/sp800_collected_cluster_data_" + str(prng_name) + "_fix2.csv"
 	# if not os.path.exists(pathToCSV)
 	# 	print('Error: PRNG type does not exist.')
@@ -20,8 +22,11 @@ def analyzeDistToOptimalPoint(prng_name):
 	data = pd.read_csv('../cluster_data/sp800_collected_cluster_data_' + str(prng_name) + '_fix2.csv', error_bad_lines=False, engine="python") #reads and parses the data
 	df = pd.DataFrame(data)
 
+	testNames = list(df.columns)
 
-	#Matrix of all rows in our file
+	sns.heatmap(df.corr())
+	plt.show()
+
 	dfMatrix = df.values.tolist()
 
 	standardizedData = []
@@ -35,37 +40,28 @@ def analyzeDistToOptimalPoint(prng_name):
 			standardizedValue = (float(cellDf))/(float(maxPossibleTest)) #the minimum value for all of the tests is 0 so we don't need to include it in the calculation
 			newRow.append(standardizedValue)
 			
-		standardizedData.append(newRow)
+		standardizedData.append(newRow)	
 
-	avgDistance = 0 #represents average distance to our point of optimal "randomness"
+	dfStandardized = pd.DataFrame(standardizedData)
+	sns.heatmap(dfStandardized.corr())
+	plt.show()
 
-	iteration = 0
-	for row in standardizedData:
-		iteration+=1
-		tempDistance = 0
-		idx = 0
-		for cell in row:
-			#print("-Cell: " + str(cell) + ", " + str(optimal_point_binary[idx]))
-			tempDistance += (cell - optimal_point_binary[idx])*(cell - optimal_point_binary[idx])
-			# print ("current data: " + str((cell - optimal_point_binary[idx])*(cell - optimal_point_binary[idx])) + ", row data: " + str(np.sqrt(tempDistance)))
-			idx+=1
-			print (tempDistance)
-		#print("row distance: " + str(tempDistance))
-		avgDistance += np.sqrt(tempDistance)
-		# print(str(iteration) + ": " + str(np.sqrt(tempDistance)) + ", " + str(avgDistance))
-		# print(avgDistance)
-	avgDistance /= len(standardizedData)
-
-	print("Quality of " + str(prng_name) + ": " + str(avgDistance))
+	for idx in range(0, len(max_list)):
+		tempList = []
+		for row in dfMatrix:
+			tempList.append(row[idx])
+		plt.hist(tempList,100)
+		plt.title(testNames[idx])
+		plt.show()
 
 def main():
 	if len(sys.argv) > 2:
 		print("Error: too many arguments.")
 		return
 	elif len(sys.argv) < 2:
-		print("Error: Usage: python3 dist_to_optimal_point.py prng_name")
+		print("Error: Usage: python3 raw_data_analysis.py prng_name")
 		return
-	analyzeDistToOptimalPoint(sys.argv[1])
+	analyzeRawData(sys.argv[1])
 
 if __name__ == '__main__':
 	main()
