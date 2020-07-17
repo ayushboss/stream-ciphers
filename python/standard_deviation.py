@@ -5,7 +5,7 @@ import os
 import sys
 import matplotlib.pyplot as plt
 
-def analyzeRawData(prng_name):
+def analyzeStandardDeviation(prng_name):
 	pathToCSV = "../cluster_data/sp800_collected_cluster_data_" + str(prng_name) + "_fix2.csv"
 	# if not os.path.exists(pathToCSV)
 	# 	print('Error: PRNG type does not exist.')
@@ -24,18 +24,18 @@ def analyzeRawData(prng_name):
 
 	testNames = list(df.columns)
 
-	sns.heatmap(df.corr())
-	plt.show()
-
 	dfMatrix = df.values.tolist()
+	
+	standardDeviation = []
 
 	for idx in range(0, len(max_list)):
 		tempList = []
 		for row in dfMatrix:
 			tempList.append(row[idx])
-		plt.hist(tempList,100)
-		plt.title(testNames[idx])
-		plt.show()
+		standDevCurrentRow = np.std(tempList)
+		standardDeviation.append(standDevCurrentRow)
+
+	print(standardDeviation)
 
 def main():
 	if len(sys.argv) > 2:
@@ -44,19 +44,8 @@ def main():
 	elif len(sys.argv) < 2:
 		print("Error: Usage: python3 raw_data_analysis.py prng_name")
 		return
-	analyzeRawData(sys.argv[1])
+	analyzeStandardDeviation(sys.argv[1])
 
 if __name__ == '__main__':
 	main()
 
-
-
-# plot histograms of the raw scores to look at the distribution of scores 
-# look at correlations of the raw scores between prng tests (like original)
-	# are they testing two linked aspects or orthagonal aspects
-#negative correlation 
-
-
-#on paper, indicate the range of each test rather than scaling and combining
-#
-#put ranges of each prng on one table and put statistical data 

@@ -14,7 +14,7 @@ def analyzeDistToOptimalPoint(prng_name):
 	#that all features are equally weighted
 	optimal_point_binary = [0,0,0.5,0,0,0,0,0,1]
 
-	max_list = [1014.3963722332606,1028907,1029000,1050.0,6526.0,24117.125,13068.0,7,190855.0]
+	max_list = [1014.3963722332606,1028907,1029000,1050.0,6526.0,24117.125,13068.0,190855.0,7]
 
 
 	data = pd.read_csv('../cluster_data/sp800_collected_cluster_data_' + str(prng_name) + '_fix2.csv', error_bad_lines=False, engine="python") #reads and parses the data
