@@ -1,2 +1,2 @@
-Monobit,Frequency Within Block,Runs,Longest Runs in Ones,Binary Matrix Rank,DFT,Non-Overlapping Template,Overlapping Template,Maurer's Universal,Linear Complexity
-1014.3963722332606,1028907,1029000,1050.0,6526.0,1029,24117.125,13068.0,7,190855.0
+Monobit,Frequency Within Block,Runs,Longest Runs in Ones,Binary Matrix Rank,Non-Overlapping Template,Overlapping Template,Maurer's Universal,Linear Complexity
+1014.3963722332606,1028907,1029000,1050.0,6526.0,24117.125,13068.0,7,190855.0

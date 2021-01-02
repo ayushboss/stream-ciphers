@@ -9,7 +9,7 @@ def getAvgData(prng_name):
 	df = pd.DataFrame(data)
 	dfMatrix = df.values.tolist()
 
-	avgList = [0, 0, 0, 0, 0, 0, 0, 0, 0]
+	avgList = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
 
 	for i in range(0,len(dfMatrix[0])):
 		for j in range(0, len(dfMatrix)):

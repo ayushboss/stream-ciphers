@@ -229,7 +229,7 @@ def test_func(bits, csv_name, prng_name, iteration, isFix):
     gotresult=False
     if args.testname:
         if args.testname in testlist:    
-            m = __import__ ("sp800_22_"+args.testname)
+            m = __import__ ("/sp800_22_"+args.testname)
             func = getattr(m,args.testname)
             print("TEST: %s" % args.testname)
             (success,p,plist,score, testmax) = func(bits)

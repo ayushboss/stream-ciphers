@@ -11,12 +11,13 @@ def analyzeStandardDeviation(prng_name):
 	# 	print('Error: PRNG type does not exist.')
 	# 	return
 	#still need to standardize the optimal values that aren't 0
-	optimal_point = [0, 0, 1029000/2, 0, 0, 0, 0, 0, 7]
+	optimal_point = [0, 0, 1029000/2, 0, 0, 0, 0, 0, 0, 7]
 	#Standardized version of the optimal point in order to ensure 
 	#that all features are equally weighted
-	optimal_point_binary = [0,0,0.5,0,0,0,0,0,1]
+	optimal_point_binary = [0,0,0.5,0,0,0,0,0,0,1]
 
-	max_list = [1014.3963722332606,1028907,1029000,1050.0,6526.0,24117.125,13068.0,190855.0,7]
+	#123 is DFT since i couldnt find one
+	max_list = [1014.3963722332606,1028907,1029000,1050.0,6526.0,123, 24117.125,13068.0,190855.0,7]
 
 
 	data = pd.read_csv('../cluster_data/sp800_collected_cluster_data_' + str(prng_name) + '_fix2.csv', error_bad_lines=False, engine="python") #reads and parses the data

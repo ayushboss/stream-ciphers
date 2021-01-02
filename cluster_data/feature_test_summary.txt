@@ -1,0 +1,17 @@
+monobit_test		0.11945033455946061		PASS
+frequency_within_block_test		0.14048962824158082		PASS
+runs_test		0.05212557346961064		PASS
+longest_run_ones_in_a_block_test		0.08340906729032653		PASS
+binary_matrix_rank_test		0.7611407251895181		PASS
+dft_test		0.41449009827633526		PASS
+non_overlapping_template_matching_test		1.0000000016486559		PASS
+overlapping_template_matching_test		0.5118489955174051		PASS
+maurers_universal_test		0.9989916955322053		PASS
+linear_complexity_test		0.07624627485251546		PASS
+serial_test		0.36368436976569685		PASS
+approximate_entropy_test		0.3628925126653168		PASS
+cumulative_sums_test		0.09626736583192375		PASS
+random_excursion_test		0.17271066148040443		PASS
+random_excursion_variant_test		0.20211302086361083		PASS
+Entropy Value		0.6931460017194013
+Compression Value		0.998803390910433
